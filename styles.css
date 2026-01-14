@@ -30,12 +30,19 @@ body {
     position: relative;
     height: 100vh;
     background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
-                url('images/header/header.jpg') center/cover no-repeat;
+                url('images/photography/header/header.jpg') center/cover no-repeat;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: white;
+    background-attachment: fixed;
+    transition: background-image 0.4s ease;
+}
+
+.hero-header.illustrations {
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+                url('images/illustrations/header/header.jpg') center/cover no-repeat;
     background-attachment: fixed;
 }
 
@@ -108,6 +115,22 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Hero Subtitle */
+.hero-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-top: 1rem;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.hero-subtitle.transitioning {
+    opacity: 0;
 }
 
 /* Scroll Indicator */
@@ -417,12 +440,136 @@ button:focus {
     outline-offset: 4px;
 }
 
+/* Portfolio Toggle Switch */
+.portfolio-toggle {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(26, 26, 26, 0.9);
+    padding: 0.75rem 1.25rem;
+    border-radius: 50px;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.toggle-label {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.toggle-label svg {
+    display: block;
+}
+
+.toggle-label.active {
+    opacity: 1;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 26px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #555;
+    transition: 0.3s;
+    border-radius: 26px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background-color: #888;
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+    transform: translateX(22px);
+}
+
+.toggle-switch input:focus + .toggle-slider {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+/* Image Transition */
+.portfolio-image {
+    transition: opacity 0.4s ease;
+}
+
+.portfolio-image.transitioning {
+    opacity: 0;
+}
+
+/* Mobile adjustments for toggle */
+@media (max-width: 768px) {
+    .portfolio-toggle {
+        bottom: 1rem;
+        left: 1rem;
+        padding: 0.5rem 0.75rem;
+        gap: 0.5rem;
+    }
+
+    .toggle-label svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .toggle-switch {
+        width: 40px;
+        height: 22px;
+    }
+
+    .toggle-slider:before {
+        height: 16px;
+        width: 16px;
+        left: 3px;
+        bottom: 3px;
+    }
+
+    .toggle-switch input:checked + .toggle-slider:before {
+        transform: translateX(18px);
+    }
+}
+
 /* Print Styles */
 @media print {
     .top-nav,
     .scroll-indicator,
     .contact-section,
-    .footer {
+    .footer,
+    .portfolio-toggle {
         display: none;
     }
 

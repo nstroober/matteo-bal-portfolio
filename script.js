@@ -1,6 +1,96 @@
 // Initialize GLightbox
 document.addEventListener('DOMContentLoaded', function() {
 
+    // Portfolio Toggle Functionality
+    const portfolioToggle = document.getElementById('portfolioToggle');
+    const heroHeader = document.querySelector('.hero-header');
+    const heroSubtitle = document.getElementById('heroSubtitle');
+    const portfolioImages = document.querySelectorAll('.portfolio-image');
+    const toggleLabels = document.querySelectorAll('.toggle-label');
+    const galleryLinks = document.querySelectorAll('.gallery-item.glightbox, .fullwidth-section .glightbox');
+
+    // Set initial active state for toggle label
+    updateToggleLabels(false);
+
+    // Load saved preference
+    const savedMode = localStorage.getItem('portfolioMode');
+    if (savedMode === 'illustrations') {
+        portfolioToggle.checked = true;
+        switchPortfolio(true, false); // instant switch, no animation
+    }
+
+    // Toggle event listener
+    portfolioToggle.addEventListener('change', function() {
+        const isIllustrations = this.checked;
+        switchPortfolio(isIllustrations, true);
+        localStorage.setItem('portfolioMode', isIllustrations ? 'illustrations' : 'photography');
+    });
+
+    function switchPortfolio(isIllustrations, animate) {
+        const transitionDuration = animate ? 400 : 0;
+
+        // Update toggle labels
+        updateToggleLabels(isIllustrations);
+
+        // Toggle header background
+        if (isIllustrations) {
+            heroHeader.classList.add('illustrations');
+        } else {
+            heroHeader.classList.remove('illustrations');
+        }
+
+        // Transition subtitle
+        if (animate) {
+            heroSubtitle.classList.add('transitioning');
+            setTimeout(() => {
+                heroSubtitle.textContent = isIllustrations ? 'Illustrations' : 'Photography';
+                heroSubtitle.classList.remove('transitioning');
+            }, transitionDuration / 2);
+        } else {
+            heroSubtitle.textContent = isIllustrations ? 'Illustrations' : 'Photography';
+        }
+
+        // Transition images
+        portfolioImages.forEach(img => {
+            if (animate) {
+                img.classList.add('transitioning');
+            }
+
+            setTimeout(() => {
+                const newSrc = isIllustrations ? img.dataset.illusSrc : img.dataset.photoSrc;
+                img.src = newSrc;
+
+                // Update parent link href for lightbox
+                const parentLink = img.closest('a.glightbox');
+                if (parentLink) {
+                    parentLink.href = newSrc;
+                }
+
+                if (animate) {
+                    img.classList.remove('transitioning');
+                }
+            }, animate ? transitionDuration / 2 : 0);
+        });
+
+        // Reinitialize lightbox after image swap
+        if (animate) {
+            setTimeout(() => {
+                lightbox.reload();
+            }, transitionDuration);
+        }
+    }
+
+    function updateToggleLabels(isIllustrations) {
+        toggleLabels.forEach(label => {
+            const mode = label.dataset.mode;
+            if ((mode === 'photo' && !isIllustrations) || (mode === 'illus' && isIllustrations)) {
+                label.classList.add('active');
+            } else {
+                label.classList.remove('active');
+            }
+        });
+    }
+
     // Initialize lightbox gallery
     const lightbox = GLightbox({
         touchNavigation: true,
@@ -159,8 +249,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Preload critical images
     const preloadImages = () => {
-        const headerImg = new Image();
-        headerImg.src = 'images/header/header.jpg';
+        const photoHeader = new Image();
+        photoHeader.src = 'images/photography/header/header.jpg';
+        const illusHeader = new Image();
+        illusHeader.src = 'images/illustrations/header/header.jpg';
     };
 
     preloadImages();
