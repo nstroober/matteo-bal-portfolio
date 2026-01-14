@@ -5,12 +5,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const portfolioToggle = document.getElementById('portfolioToggle');
     const heroHeader = document.querySelector('.hero-header');
     const heroSubtitle = document.getElementById('heroSubtitle');
-    const portfolioImages = document.querySelectorAll('.portfolio-image');
     const toggleLabels = document.querySelectorAll('.toggle-label');
-    const galleryLinks = document.querySelectorAll('.gallery-item.glightbox, .fullwidth-section .glightbox');
+    const navGroups = document.querySelectorAll('.nav-group');
+    const portfolioSections = document.querySelectorAll('.portfolio-section');
 
     // Set initial active state for toggle label
     updateToggleLabels(false);
+
+    // Initialize lightbox gallery
+    let lightbox = GLightbox({
+        selector: '.portfolio-section:not([hidden]) .glightbox, .contact-section .glightbox',
+        touchNavigation: true,
+        loop: true,
+        autoplayVideos: true,
+        zoomable: true,
+        draggable: true,
+        closeButton: true,
+        closeOnOutsideClick: true,
+        keyboardNavigation: true,
+        preload: true
+    });
 
     // Load saved preference
     const savedMode = localStorage.getItem('portfolioMode');
@@ -27,7 +41,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function switchPortfolio(isIllustrations, animate) {
-        const transitionDuration = animate ? 400 : 0;
+        const targetPortfolio = isIllustrations ? 'illustrations' : 'photography';
+        const transitionDuration = animate ? 300 : 0;
 
         // Update toggle labels
         updateToggleLabels(isIllustrations);
@@ -50,34 +65,51 @@ document.addEventListener('DOMContentLoaded', function() {
             heroSubtitle.textContent = isIllustrations ? 'Illustrations' : 'Photography';
         }
 
-        // Transition images
-        portfolioImages.forEach(img => {
-            if (animate) {
-                img.classList.add('transitioning');
+        // Toggle navigation groups
+        navGroups.forEach(group => {
+            if (group.dataset.portfolio === targetPortfolio) {
+                group.hidden = false;
+            } else {
+                group.hidden = true;
             }
-
-            setTimeout(() => {
-                const newSrc = isIllustrations ? img.dataset.illusSrc : img.dataset.photoSrc;
-                img.src = newSrc;
-
-                // Update parent link href for lightbox
-                const parentLink = img.closest('a.glightbox');
-                if (parentLink) {
-                    parentLink.href = newSrc;
-                }
-
-                if (animate) {
-                    img.classList.remove('transitioning');
-                }
-            }, animate ? transitionDuration / 2 : 0);
         });
 
-        // Reinitialize lightbox after image swap
+        // Toggle portfolio sections
+        portfolioSections.forEach(section => {
+            if (section.dataset.portfolio === targetPortfolio) {
+                section.hidden = false;
+                // Re-observe gallery items for fade-in effect
+                section.querySelectorAll('.gallery-item').forEach(item => {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(30px)';
+                    observer.observe(item);
+                });
+            } else {
+                section.hidden = true;
+            }
+        });
+
+        // Scroll to top of page when switching (if animated)
         if (animate) {
-            setTimeout(() => {
-                lightbox.reload();
-            }, transitionDuration);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // Reinitialize lightbox with visible elements
+        setTimeout(() => {
+            lightbox.destroy();
+            lightbox = GLightbox({
+                selector: '.portfolio-section:not([hidden]) .glightbox',
+                touchNavigation: true,
+                loop: true,
+                autoplayVideos: true,
+                zoomable: true,
+                draggable: true,
+                closeButton: true,
+                closeOnOutsideClick: true,
+                keyboardNavigation: true,
+                preload: true
+            });
+        }, transitionDuration);
     }
 
     function updateToggleLabels(isIllustrations) {
@@ -91,19 +123,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Initialize lightbox gallery
-    const lightbox = GLightbox({
-        touchNavigation: true,
-        loop: true,
-        autoplayVideos: true,
-        zoomable: true,
-        draggable: true,
-        closeButton: true,
-        closeOnOutsideClick: true,
-        keyboardNavigation: true,
-        preload: true
-    });
-
     // Smooth scroll for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -111,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (href !== '#') {
                 e.preventDefault();
                 const target = document.querySelector(href);
-                if (target) {
+                if (target && !target.hidden) {
                     target.scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
@@ -125,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let ticking = false;
 
     function updateParallax() {
-        const parallaxSections = document.querySelectorAll('.parallax');
+        const parallaxSections = document.querySelectorAll('.portfolio-section:not([hidden]) .parallax');
 
         parallaxSections.forEach(section => {
             const rect = section.getBoundingClientRect();
@@ -158,9 +177,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const scrollIndicator = document.querySelector('.scroll-indicator');
     if (scrollIndicator) {
         scrollIndicator.addEventListener('click', () => {
-            const firstSection = document.querySelector('.gallery-section');
-            if (firstSection) {
-                firstSection.scrollIntoView({ behavior: 'smooth' });
+            // Find first visible portfolio section
+            const firstVisibleSection = document.querySelector('.portfolio-section:not([hidden])');
+            if (firstVisibleSection) {
+                firstVisibleSection.scrollIntoView({ behavior: 'smooth' });
             }
         });
     }
@@ -181,8 +201,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
 
-    // Observe gallery items for fade-in effect
-    document.querySelectorAll('.gallery-item').forEach(item => {
+    // Observe gallery items for fade-in effect (only visible sections)
+    document.querySelectorAll('.portfolio-section:not([hidden]) .gallery-item').forEach(item => {
         item.style.opacity = '0';
         item.style.transform = 'translateY(30px)';
         item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -203,17 +223,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Add active state to navigation based on scroll position
-    const sections = document.querySelectorAll('section[id], header[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-
     function highlightNavigation() {
+        const visibleSections = document.querySelectorAll('.portfolio-section:not([hidden]), #contact');
+        const activeNavGroup = document.querySelector('.nav-group:not([hidden])');
+        if (!activeNavGroup) return;
+
+        const navLinks = activeNavGroup.querySelectorAll('.nav-link');
         let current = '';
         const scrollPosition = window.pageYOffset;
 
-        sections.forEach(section => {
+        visibleSections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-
             if (scrollPosition >= sectionTop - 200) {
                 current = section.getAttribute('id');
             }
@@ -247,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 250);
     });
 
-    // Preload critical images
+    // Preload header images
     const preloadImages = () => {
         const photoHeader = new Image();
         photoHeader.src = 'images/photography/header/header.jpg';

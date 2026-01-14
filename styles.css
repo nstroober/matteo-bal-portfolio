@@ -54,10 +54,20 @@ body {
     right: 0;
     padding: 2rem 4rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     z-index: 100;
+}
+
+.nav-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 3rem;
+}
+
+.nav-group[hidden] {
+    display: none;
 }
 
 .nav-link {
@@ -131,6 +141,15 @@ body {
 
 .hero-subtitle.transitioning {
     opacity: 0;
+}
+
+/* Portfolio Sections */
+.portfolio-section {
+    display: block;
+}
+
+.portfolio-section[hidden] {
+    display: none;
 }
 
 /* Scroll Indicator */
@@ -335,8 +354,12 @@ body {
 @media (max-width: 768px) {
     .top-nav {
         padding: 1rem 1.5rem;
-        gap: 1.5rem;
         justify-content: center;
+    }
+
+    .nav-group {
+        gap: 1.5rem;
+        flex-wrap: wrap;
     }
 
     .nav-link {
@@ -392,14 +415,15 @@ body {
 /* Small Mobile */
 @media (max-width: 480px) {
     .top-nav {
-        flex-direction: row;
-        flex-wrap: wrap;
         padding: 1rem;
-        gap: 1rem;
+    }
+
+    .nav-group {
+        gap: 0.75rem;
     }
 
     .nav-link {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
     }
 
     .hero-title {
