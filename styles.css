@@ -23,6 +23,7 @@ body {
     color: var(--text-color);
     line-height: 1.6;
     overflow-x: hidden;
+    background: var(--secondary-color);
 }
 
 /* Hero Header */
@@ -181,8 +182,24 @@ body {
 
 /* Gallery Section */
 .gallery-section {
-    padding: 5rem 12rem;
-    background: var(--secondary-color);
+    position: relative;
+    padding: 6rem 12rem 8rem;
+    background: white;
+    border-radius: 60px;
+    margin: -150px 0;
+    z-index: 10;
+}
+
+/* Section Title */
+.section-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 4rem;
+    color: var(--text-color);
+    letter-spacing: 0.05em;
+    text-transform: lowercase;
 }
 
 .grid-container {
@@ -223,8 +240,11 @@ body {
 /* Full Width Section with Parallax */
 .fullwidth-section {
     position: relative;
-    height: 70vh;
+    height: 120vh;
     overflow: hidden;
+    border-radius: 60px;
+    margin: 0;
+    z-index: 5;
 }
 
 .fullwidth-section.parallax {
@@ -237,6 +257,8 @@ body {
     display: block;
     width: 100%;
     height: 100%;
+    border-radius: 60px;
+    overflow: hidden;
 }
 
 .fullwidth-image {
@@ -349,11 +371,24 @@ body {
     }
 
     .gallery-section {
-        padding: 4rem 3rem;
+        padding: 5rem 3rem 6rem;
+        border-radius: 50px;
+        margin: -100px 0;
+    }
+
+    .section-title {
+        font-size: 1.6rem;
+        margin-bottom: 3rem;
     }
 
     .fullwidth-section {
-        height: 50vh;
+        height: 100vh;
+        border-radius: 50px;
+        margin: 0;
+    }
+
+    .fullwidth-section a {
+        border-radius: 50px;
     }
 
     .contact-section {
@@ -387,7 +422,14 @@ body {
     }
 
     .gallery-section {
-        padding: 3rem 1.5rem;
+        padding: 4rem 1.5rem 5rem;
+        border-radius: 40px;
+        margin: -80px 0;
+    }
+
+    .section-title {
+        font-size: 1.4rem;
+        margin-bottom: 2.5rem;
     }
 
     .grid-6 {
@@ -405,8 +447,14 @@ body {
     }
 
     .fullwidth-section {
-        height: 40vh;
+        height: 90vh;
         background-attachment: scroll;
+        border-radius: 40px;
+        margin: 0;
+    }
+
+    .fullwidth-section a {
+        border-radius: 40px;
     }
 
     .contact-section {

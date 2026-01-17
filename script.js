@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const imgElement = section.querySelector('img');
 
             if (imgElement && rect.top < window.innerHeight && rect.bottom > 0) {
-                const yPos = -(scrolled - section.offsetTop) * 0.4;
+                const yPos = -(scrolled - section.offsetTop) * 0.15;
                 imgElement.style.transform = `translate3d(0, ${yPos}px, 0)`;
             }
         });
