@@ -688,11 +688,12 @@ section {
     transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-/* Accessibility */
+/* Accessibility - Remove focus outline */
 a:focus,
-button:focus {
-    outline: 2px solid white;
-    outline-offset: 4px;
+button:focus,
+a:focus-visible,
+button:focus-visible {
+    outline: none;
 }
 
 /* Back to Home Button */
