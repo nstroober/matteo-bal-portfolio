@@ -42,11 +42,19 @@ document.addEventListener('DOMContentLoaded', function() {
         preload: true
     });
 
-    // Load saved preference
-    const savedMode = localStorage.getItem('portfolioMode');
+    // Check URL parameter first, then fall back to localStorage
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlMode = urlParams.get('mode');
+    const savedMode = urlMode || localStorage.getItem('portfolioMode');
+
     if (savedMode === 'illustrations') {
         portfolioToggle.checked = true;
         switchPortfolio(true, false); // instant switch, no animation
+    }
+
+    // Clear URL parameter after reading (clean URL)
+    if (urlMode) {
+        window.history.replaceState({}, document.title, window.location.pathname);
     }
 
     // Toggle event listener
