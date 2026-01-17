@@ -73,13 +73,13 @@ document.addEventListener('DOMContentLoaded', function() {
         portfolioSections.forEach(section => {
             if (section.dataset.portfolio === targetPortfolio) {
                 section.hidden = false;
-                // Fade-in animations disabled to prevent flickering
-                // section.querySelectorAll('.gallery-item').forEach(item => {
-                //     item.style.opacity = '0';
-                //     item.style.transform = 'translateY(30px)';
-                //     item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                //     observer.observe(item);
-                // });
+                // Re-apply fade-in animations for gallery items
+                section.querySelectorAll('.gallery-item').forEach(item => {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(30px)';
+                    item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    observer.observe(item);
+                });
             } else {
                 section.hidden = true;
             }
@@ -201,13 +201,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Initialize gallery item animations (observer is defined at the top)
-    // Disabled to prevent flickering with many images
-    // document.querySelectorAll('.portfolio-section:not([hidden]) .gallery-item').forEach(item => {
-    //     item.style.opacity = '0';
-    //     item.style.transform = 'translateY(30px)';
-    //     item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    //     observer.observe(item);
-    // });
+    document.querySelectorAll('.portfolio-section:not([hidden]) .gallery-item').forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(30px)';
+        item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(item);
+    });
 
     // Lazy loading for images
     if ('loading' in HTMLImageElement.prototype) {
