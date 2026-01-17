@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Portfolio Toggle Functionality
     const portfolioToggle = document.getElementById('portfolioToggle');
     const heroHeader = document.querySelector('.hero-header');
-    const heroSubtitle = document.getElementById('heroSubtitle');
     const toggleLabels = document.querySelectorAll('.toggle-label');
     const navGroups = document.querySelectorAll('.nav-group');
     const portfolioSections = document.querySelectorAll('.portfolio-section');
@@ -76,17 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
             heroHeader.classList.add('illustrations');
         } else {
             heroHeader.classList.remove('illustrations');
-        }
-
-        // Transition subtitle
-        if (animate) {
-            heroSubtitle.classList.add('transitioning');
-            setTimeout(() => {
-                heroSubtitle.textContent = isIllustrations ? 'Illustrations' : 'Photography';
-                heroSubtitle.classList.remove('transitioning');
-            }, transitionDuration / 2);
-        } else {
-            heroSubtitle.textContent = isIllustrations ? 'Illustrations' : 'Photography';
         }
 
         // Toggle navigation groups

@@ -1,3 +1,18 @@
+/* Fonts */
+@font-face {
+    font-family: 'Alte Haas Grotesk';
+    src: url('fonts/AlteHaasGroteskRegular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Alte Haas Grotesk';
+    src: url('fonts/AlteHaasGroteskBold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -11,6 +26,7 @@
     --text-color: #333;
     --light-text: #666;
     --accent-color: #fff;
+    --nav-color: #FFF2D9;
     --spacing-unit: 1rem;
 }
 
@@ -29,12 +45,11 @@ body {
 /* Hero Header */
 .hero-header {
     position: relative;
-    height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
-                url('images/photography/header/header.jpg') center/cover no-repeat;
+    height: calc(100vh + 150px);
+    background: url('images/photography/header/header.jpg') center/cover no-repeat;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     color: white;
     background-attachment: fixed;
@@ -42,8 +57,7 @@ body {
 }
 
 .hero-header.illustrations {
-    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
-                url('images/illustrations/header/header.jpg') center/cover no-repeat;
+    background: url('images/illustrations/header/header.jpg') center top/cover no-repeat;
     background-attachment: fixed;
 }
 
@@ -64,7 +78,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 3rem;
+    gap: 6rem;
 }
 
 .nav-group[hidden] {
@@ -72,11 +86,12 @@ body {
 }
 
 .nav-link {
-    color: white;
+    color: var(--nav-color);
     text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 400;
-    letter-spacing: 0.05em;
+    font-family: 'Alte Haas Grotesk', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
     text-transform: lowercase;
     transition: opacity 0.3s ease;
     position: relative;
@@ -93,7 +108,7 @@ body {
     left: 0;
     width: 0;
     height: 1px;
-    background: white;
+    background: var(--nav-color);
     transition: width 0.3s ease;
 }
 
@@ -101,24 +116,22 @@ body {
     width: 100%;
 }
 
-/* Hero Title */
+/* Logo */
 .hero-content {
     text-align: center;
     z-index: 10;
+    margin-top: 6rem;
 }
 
-.hero-title-link {
+.logo-link {
+    display: inline-block;
     text-decoration: none;
-    color: inherit;
 }
 
-.hero-title {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(3rem, 10vw, 8rem);
-    font-weight: 400;
-    letter-spacing: 0.15em;
-    margin: 0;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+.logo {
+    max-width: 1000px;
+    width: 85vw;
+    height: auto;
     animation: fadeInUp 1.2s ease-out;
 }
 
@@ -133,22 +146,6 @@ body {
     }
 }
 
-/* Hero Subtitle */
-.hero-subtitle {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 300;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    margin-top: 1rem;
-    opacity: 0.9;
-    transition: opacity 0.3s ease;
-}
-
-.hero-subtitle.transitioning {
-    opacity: 0;
-}
-
 /* Portfolio Sections */
 .portfolio-section {
     display: block;
@@ -158,26 +155,9 @@ body {
     display: none;
 }
 
-/* Scroll Indicator */
+/* Scroll Indicator - Hidden */
 .scroll-indicator {
-    position: absolute;
-    bottom: 3rem;
-    font-size: 2rem;
-    color: white;
-    animation: bounce 2s infinite;
-    cursor: pointer;
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-15px);
-    }
-    60% {
-        transform: translateY(-8px);
-    }
+    display: none;
 }
 
 /* Gallery Section */
@@ -362,7 +342,18 @@ body {
 @media (max-width: 1024px) {
     .top-nav {
         padding: 1.5rem 2rem;
-        gap: 2rem;
+    }
+
+    .nav-group {
+        gap: 4rem;
+    }
+
+    .nav-link {
+        font-size: 1.4rem;
+    }
+
+    .hero-header {
+        height: calc(100vh + 100px);
     }
 
     .grid-6 {
@@ -379,6 +370,15 @@ body {
     .section-title {
         font-size: 1.6rem;
         margin-bottom: 3rem;
+    }
+
+    .hero-content {
+        margin-top: 5rem;
+    }
+
+    .logo {
+        max-width: 800px;
+        width: 88vw;
     }
 
     .fullwidth-section {
@@ -409,16 +409,21 @@ body {
     }
 
     .nav-link {
-        font-size: 0.85rem;
+        font-size: 1rem;
     }
 
     .hero-header {
         background-attachment: scroll;
+        height: calc(100vh + 80px);
     }
 
-    .hero-title {
-        font-size: clamp(2rem, 12vw, 3.5rem);
-        letter-spacing: 0.1em;
+    .hero-content {
+        margin-top: 5rem;
+    }
+
+    .logo {
+        max-width: 700px;
+        width: 90vw;
     }
 
     .gallery-section {
@@ -479,19 +484,27 @@ body {
 /* Small Mobile */
 @media (max-width: 480px) {
     .top-nav {
-        padding: 1rem;
+        padding: 0.8rem;
     }
 
     .nav-group {
-        gap: 0.75rem;
+        gap: 1rem;
     }
 
     .nav-link {
-        font-size: 0.75rem;
+        font-size: 0.85rem;
     }
 
-    .hero-title {
-        letter-spacing: 0.08em;
+    .hero-header {
+        height: calc(100vh + 80px);
+    }
+
+    .hero-content {
+        margin-top: 4.5rem;
+    }
+
+    .logo {
+        max-width: 500px;
     }
 
     .contact-title {
