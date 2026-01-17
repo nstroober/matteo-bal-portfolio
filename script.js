@@ -1,14 +1,12 @@
 // Initialize GLightbox
 document.addEventListener('DOMContentLoaded', function() {
 
-    // Portfolio Toggle Functionality
-    const portfolioToggle = document.getElementById('portfolioToggle');
+    // Portfolio Mode Detection (URL parameter)
     const heroHeader = document.querySelector('.hero-header');
-    const toggleLabels = document.querySelectorAll('.toggle-label');
     const navGroups = document.querySelectorAll('.nav-group');
     const portfolioSections = document.querySelectorAll('.portfolio-section');
 
-    // Fade-in animation observer (defined early so switchPortfolio can use it)
+    // Fade-in animation observer (disabled to prevent flickering)
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -24,9 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
 
-    // Set initial active state for toggle label
-    updateToggleLabels(false);
-
     // Initialize lightbox gallery
     let lightbox = GLightbox({
         selector: '.portfolio-section:not([hidden]) .glightbox, .contact-section .glightbox',
@@ -41,13 +36,11 @@ document.addEventListener('DOMContentLoaded', function() {
         preload: true
     });
 
-    // Check URL parameter first, then fall back to localStorage
+    // Check URL parameter to show correct portfolio
     const urlParams = new URLSearchParams(window.location.search);
     const urlMode = urlParams.get('mode');
-    const savedMode = urlMode || localStorage.getItem('portfolioMode');
 
-    if (savedMode === 'illustrations') {
-        portfolioToggle.checked = true;
+    if (urlMode === 'illustrations') {
         switchPortfolio(true, false); // instant switch, no animation
     }
 
@@ -56,19 +49,9 @@ document.addEventListener('DOMContentLoaded', function() {
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 
-    // Toggle event listener
-    portfolioToggle.addEventListener('change', function() {
-        const isIllustrations = this.checked;
-        switchPortfolio(isIllustrations, true);
-        localStorage.setItem('portfolioMode', isIllustrations ? 'illustrations' : 'photography');
-    });
-
     function switchPortfolio(isIllustrations, animate) {
         const targetPortfolio = isIllustrations ? 'illustrations' : 'photography';
         const transitionDuration = animate ? 300 : 0;
-
-        // Update toggle labels
-        updateToggleLabels(isIllustrations);
 
         // Toggle header background
         if (isIllustrations) {
@@ -90,13 +73,13 @@ document.addEventListener('DOMContentLoaded', function() {
         portfolioSections.forEach(section => {
             if (section.dataset.portfolio === targetPortfolio) {
                 section.hidden = false;
-                // Re-observe gallery items for fade-in effect
-                section.querySelectorAll('.gallery-item').forEach(item => {
-                    item.style.opacity = '0';
-                    item.style.transform = 'translateY(30px)';
-                    item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                    observer.observe(item);
-                });
+                // Fade-in animations disabled to prevent flickering
+                // section.querySelectorAll('.gallery-item').forEach(item => {
+                //     item.style.opacity = '0';
+                //     item.style.transform = 'translateY(30px)';
+                //     item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                //     observer.observe(item);
+                // });
             } else {
                 section.hidden = true;
             }
@@ -125,17 +108,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, transitionDuration);
     }
 
-    function updateToggleLabels(isIllustrations) {
-        toggleLabels.forEach(label => {
-            const mode = label.dataset.mode;
-            if ((mode === 'photo' && !isIllustrations) || (mode === 'illus' && isIllustrations)) {
-                label.classList.add('active');
-            } else {
-                label.classList.remove('active');
-            }
-        });
-    }
-
     // Smooth scroll for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -144,10 +116,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
                 const target = document.querySelector(href);
                 if (target && !target.hidden) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    // First sections (kleur, redactioneel) scroll to gallery section
+                    if (href === '#kleur' || href === '#redactioneel') {
+                        const gallerySection = target.querySelector('.gallery-section');
+                        if (gallerySection) {
+                            gallerySection.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                    // Contact section - scroll directly to the contact container
+                    else if (href === '#contact') {
+                        const aboutContactSection = document.querySelector('.about-contact-section');
+                        if (aboutContactSection) {
+                            aboutContactSection.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                    // Other sections: scroll to show full header image with title just visible
+                    else {
+                        const fullwidthSection = target.querySelector('.fullwidth-section');
+                        const gallerySection = target.querySelector('.gallery-section');
+                        if (fullwidthSection && gallerySection) {
+                            // Scroll to show full header and just a bit of the gallery section with title
+                            const targetPosition = gallerySection.getBoundingClientRect().top + window.pageYOffset;
+                            const offset = window.innerHeight * 0.85; // Show about 85% down the gallery section
+                            window.scrollTo({
+                                top: targetPosition - offset,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
                 }
             }
         });
@@ -199,12 +201,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Initialize gallery item animations (observer is defined at the top)
-    document.querySelectorAll('.portfolio-section:not([hidden]) .gallery-item').forEach(item => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(30px)';
-        item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(item);
-    });
+    // Disabled to prevent flickering with many images
+    // document.querySelectorAll('.portfolio-section:not([hidden]) .gallery-item').forEach(item => {
+    //     item.style.opacity = '0';
+    //     item.style.transform = 'translateY(30px)';
+    //     item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    //     observer.observe(item);
+    // });
 
     // Lazy loading for images
     if ('loading' in HTMLImageElement.prototype) {

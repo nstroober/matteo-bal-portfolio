@@ -183,7 +183,7 @@ body {
 .gallery-section {
     position: relative;
     padding: 4rem 12rem 8rem;
-    background: white;
+    background: #FFF2D9;
     border-radius: 60px;
     margin: -150px 0;
     z-index: 10;
@@ -218,8 +218,10 @@ body {
     aspect-ratio: 5/7;
     cursor: pointer;
     display: block;
-    background: #ddd;
+    background: #FFF2D9;
     border-radius: 12px;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 .gallery-item img {
@@ -229,11 +231,38 @@ body {
     transition: transform 0.6s ease, filter 0.3s ease;
     display: block;
     border-radius: 12px;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 .gallery-item:hover img {
-    transform: scale(1.08);
+    transform: scale(1.08) translateZ(0);
     filter: brightness(1.1);
+}
+
+/* Video indicator overlay */
+.video-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: white;
+    background: rgba(0, 0, 0, 0.6);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    padding-left: 5px; /* Center the play icon */
+}
+
+.gallery-item:hover .video-indicator {
+    background: rgba(0, 0, 0, 0.8);
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
 /* Full Width Section with Parallax */
@@ -291,7 +320,7 @@ body {
 /* About & Contact Section */
 .about-contact-section {
     position: relative;
-    background: white;
+    background: #FFF2D9;
     border-radius: 60px;
     margin-top: -150px;
     margin-bottom: 0;
@@ -649,7 +678,7 @@ body {
 /* Loading States */
 .gallery-item img,
 .fullwidth-image {
-    background: #e0e0e0;
+    background: #FFF2D9;
 }
 
 /* Smooth Transitions */
@@ -666,87 +695,39 @@ button:focus {
     outline-offset: 4px;
 }
 
-/* Portfolio Toggle Switch */
-.portfolio-toggle {
+/* Back to Home Button */
+.back-to-home {
     position: fixed;
     bottom: 2rem;
     left: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: rgba(26, 26, 26, 0.9);
-    padding: 0.75rem 1.25rem;
-    border-radius: 50px;
-    z-index: 1000;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.toggle-label {
-    color: white;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0.4;
-    transition: opacity 0.3s ease;
-    cursor: pointer;
-}
-
-.toggle-label svg {
-    display: block;
-}
-
-.toggle-label.active {
-    opacity: 1;
-}
-
-.toggle-switch {
-    position: relative;
-    display: inline-block;
-    width: 48px;
-    height: 26px;
-}
-
-.toggle-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.toggle-slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #555;
-    transition: 0.3s;
-    border-radius: 26px;
-}
-
-.toggle-slider:before {
-    position: absolute;
-    content: "";
-    height: 20px;
-    width: 20px;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    transition: 0.3s;
+    background: rgba(26, 26, 26, 0.15);
     border-radius: 50%;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    text-decoration: none;
 }
 
-.toggle-switch input:checked + .toggle-slider {
-    background-color: #888;
+.back-to-home svg {
+    color: #FFF2D9;
+    transition: all 0.3s ease;
 }
 
-.toggle-switch input:checked + .toggle-slider:before {
-    transform: translateX(22px);
+.back-to-home:hover {
+    background: rgba(26, 26, 26, 0.25);
+    transform: translateX(-3px);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
 }
 
-.toggle-switch input:focus + .toggle-slider {
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+.back-to-home:hover svg {
+    color: #FFF2D9;
+    transform: translateX(-2px);
 }
 
 /* Image Transition */
@@ -758,34 +739,18 @@ button:focus {
     opacity: 0;
 }
 
-/* Mobile adjustments for toggle */
+/* Mobile adjustments for back button */
 @media (max-width: 768px) {
-    .portfolio-toggle {
+    .back-to-home {
         bottom: 1rem;
         left: 1rem;
-        padding: 0.5rem 0.75rem;
-        gap: 0.5rem;
+        width: 44px;
+        height: 44px;
     }
 
-    .toggle-label svg {
-        width: 16px;
-        height: 16px;
-    }
-
-    .toggle-switch {
-        width: 40px;
-        height: 22px;
-    }
-
-    .toggle-slider:before {
-        height: 16px;
-        width: 16px;
-        left: 3px;
-        bottom: 3px;
-    }
-
-    .toggle-switch input:checked + .toggle-slider:before {
-        transform: translateX(18px);
+    .back-to-home svg {
+        width: 18px;
+        height: 18px;
     }
 }
 
@@ -795,7 +760,7 @@ button:focus {
     .scroll-indicator,
     .contact-section,
     .footer,
-    .portfolio-toggle {
+    .back-to-home {
         display: none;
     }
 
