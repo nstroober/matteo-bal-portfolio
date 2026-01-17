@@ -75,7 +75,9 @@ body {
 
 /* Custom image positioning per card */
 .choice-card:first-child .choice-image {
-    object-position: left top;
+    object-position: left 40%;
+    transform: scale(1.5) translateX(-3%);
+    transform-origin: left center;
 }
 
 .choice-card:last-child .choice-image {
@@ -83,16 +85,20 @@ body {
 }
 
 .choice-card:hover .choice-image {
-    transform: scale(1.03);
+    transform: scale(1.05);
+}
+
+.choice-card:first-child:hover .choice-image {
+    transform: scale(1.55) translateX(-3%);
 }
 
 .choice-label {
     position: absolute;
-    bottom: 1.5rem;
+    bottom: 1rem;
     font-family: 'Alte Haas Grotesk', sans-serif;
     font-weight: 700;
     font-size: 1.5rem;
-    color: white;
+    color: #f5edd6;
 }
 
 .choice-card:first-child .choice-label {
