@@ -163,7 +163,7 @@ body {
 /* Gallery Section */
 .gallery-section {
     position: relative;
-    padding: 6rem 12rem 8rem;
+    padding: 4rem 12rem 8rem;
     background: white;
     border-radius: 60px;
     margin: -150px 0;
@@ -172,9 +172,9 @@ body {
 
 /* Section Title */
 .section-title {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 400;
+    font-family: 'Alte Haas Grotesk', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
     text-align: center;
     margin-bottom: 4rem;
     color: var(--text-color);
@@ -183,20 +183,20 @@ body {
 }
 
 .grid-container {
-    max-width: 1000px;
+    max-width: 750px;
     margin: 0 auto;
 }
 
 .grid-6 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 4rem;
+    gap: 2.5rem;
 }
 
 .gallery-item {
     position: relative;
     overflow: hidden;
-    aspect-ratio: 4/5;
+    aspect-ratio: 5/7;
     cursor: pointer;
     display: block;
     background: #ddd;
@@ -358,17 +358,17 @@ body {
 
     .grid-6 {
         grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
+        gap: 1.5rem;
     }
 
     .gallery-section {
-        padding: 5rem 3rem 6rem;
+        padding: 3rem 3rem 6rem;
         border-radius: 50px;
         margin: -100px 0;
     }
 
     .section-title {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
         margin-bottom: 3rem;
     }
 
@@ -427,23 +427,23 @@ body {
     }
 
     .gallery-section {
-        padding: 4rem 1.5rem 5rem;
+        padding: 2.5rem 1.5rem 5rem;
         border-radius: 40px;
         margin: -80px 0;
     }
 
     .section-title {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         margin-bottom: 2.5rem;
     }
 
     .grid-6 {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1.2rem;
     }
 
     .gallery-item {
-        aspect-ratio: 4/5;
+        aspect-ratio: 5/7;
         border-radius: 10px;
     }
 
