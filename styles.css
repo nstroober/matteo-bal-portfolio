@@ -662,15 +662,16 @@ body {
 /* Small Mobile */
 @media (max-width: 480px) {
     .top-nav {
-        padding: 0.8rem;
+        padding: 0;
     }
 
     .nav-group {
         gap: 1rem;
+        padding: 1.5rem;
     }
 
     .nav-link {
-        font-size: 0.85rem;
+        font-size: 2rem;
     }
 
     .hero-header {
@@ -678,7 +679,7 @@ body {
     }
 
     .hero-content {
-        margin-top: 4.5rem;
+        margin-top: 2rem;
     }
 
     .logo {
