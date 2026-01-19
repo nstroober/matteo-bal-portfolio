@@ -44,10 +44,8 @@ document.addEventListener('DOMContentLoaded', function() {
         switchPortfolio(true, false); // instant switch, no animation
     }
 
-    // Clear URL parameter after reading (clean URL)
-    if (urlMode) {
-        window.history.replaceState({}, document.title, window.location.pathname);
-    }
+    // Keep URL parameter so hard refresh stays on the same portfolio
+    // (Don't clear it anymore)
 
     function switchPortfolio(isIllustrations, animate) {
         const targetPortfolio = isIllustrations ? 'illustrations' : 'photography';
