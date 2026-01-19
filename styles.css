@@ -526,19 +526,26 @@ body {
         padding: 0;
         justify-content: flex-end;
         align-items: flex-start;
+        pointer-events: none;
     }
 
     .nav-group {
+        display: flex;
         flex-direction: column;
         align-items: flex-end;
         gap: 1rem;
         padding: 2rem;
+        pointer-events: auto;
+    }
+
+    .nav-group[hidden] {
+        display: none;
     }
 
     /* Photography: position closer to logo */
-    .hero-header:not(.illustrations) .nav-group[data-portfolio="photography"] {
+    .hero-header:not(.illustrations) .nav-group[data-portfolio="photography"]:not([hidden]) {
         position: absolute;
-        top: 6rem;
+        top: 8rem;
         right: 0;
         justify-content: flex-start;
         width: auto;
@@ -546,7 +553,7 @@ body {
     }
 
     /* Illustrations: position near bottom of header */
-    .hero-header.illustrations .nav-group[data-portfolio="illustrations"] {
+    .hero-header.illustrations .nav-group[data-portfolio="illustrations"]:not([hidden]) {
         position: absolute;
         bottom: 8rem;
         right: 0;
@@ -566,7 +573,7 @@ body {
     }
 
     .hero-content {
-        margin-top: 2rem;
+        margin-top: 0.5rem;
     }
 
     .logo {
@@ -679,7 +686,7 @@ body {
     }
 
     .hero-content {
-        margin-top: 2rem;
+        margin-top: 0.5rem;
     }
 
     .logo {
