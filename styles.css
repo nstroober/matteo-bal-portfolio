@@ -26,7 +26,7 @@
     --text-color: #333;
     --light-text: #666;
     --accent-color: #fff;
-    --nav-color: #FFF2D9;
+    --nav-color: #FFFCF5;
     --spacing-unit: 1rem;
 }
 
@@ -189,7 +189,7 @@ body {
 .gallery-section {
     position: relative;
     padding: 4rem 12rem 8rem;
-    background: #FFF2D9;
+    background: #FFFCF5;
     border-radius: 60px;
     margin: -150px 0;
     z-index: 10;
@@ -224,7 +224,7 @@ body {
     aspect-ratio: 5/7;
     cursor: pointer;
     display: block;
-    background: #FFF2D9;
+    background: #FFFCF5;
     border-radius: 12px;
     transform: translateZ(0);
     backface-visibility: hidden;
@@ -323,7 +323,7 @@ body {
 /* About & Contact Section */
 .about-contact-section {
     position: relative;
-    background: #FFF2D9;
+    background: #FFFCF5;
     border-radius: 60px;
     margin-top: -150px;
     margin-bottom: 0;
@@ -523,17 +523,41 @@ body {
 /* Mobile Styles */
 @media (max-width: 768px) {
     .top-nav {
-        padding: 1rem 1.5rem;
-        justify-content: center;
+        padding: 0;
+        justify-content: flex-end;
+        align-items: flex-start;
     }
 
     .nav-group {
-        gap: 1.5rem;
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 1rem;
+        padding: 2rem;
+    }
+
+    /* Photography: position closer to logo */
+    .hero-header:not(.illustrations) .nav-group[data-portfolio="photography"] {
+        position: absolute;
+        top: 6rem;
+        right: 0;
+        justify-content: flex-start;
+        width: auto;
+        max-width: none;
+    }
+
+    /* Illustrations: position near bottom of header */
+    .hero-header.illustrations .nav-group[data-portfolio="illustrations"] {
+        position: absolute;
+        bottom: 8rem;
+        right: 0;
+        top: auto;
+        z-index: 200;
     }
 
     .nav-link {
-        font-size: 1rem;
+        font-size: 2rem;
+        text-align: right;
+        color: #FFFCF5;
     }
 
     .hero-header {
@@ -542,7 +566,7 @@ body {
     }
 
     .hero-content {
-        margin-top: 5rem;
+        margin-top: 2rem;
     }
 
     .logo {
@@ -683,7 +707,7 @@ body {
 /* Loading States */
 .gallery-item img,
 .fullwidth-image {
-    background: #FFF2D9;
+    background: #FFFCF5;
 }
 
 /* Smooth Transitions */
@@ -721,7 +745,7 @@ button:focus-visible {
 }
 
 .back-to-home svg {
-    color: #FFF2D9;
+    color: #FFFCF5;
     transition: all 0.3s ease;
 }
 
@@ -732,7 +756,7 @@ button:focus-visible {
 }
 
 .back-to-home:hover svg {
-    color: #FFF2D9;
+    color: #FFFCF5;
     transform: translateX(-2px);
 }
 
