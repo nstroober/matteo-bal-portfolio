@@ -29,20 +29,30 @@ body {
 /* Welcome Container */
 .welcome-container {
     min-height: 100vh;
-    padding: 2rem 3rem;
+    padding: 1.75rem 3rem 2.5rem;
     display: flex;
     flex-direction: column;
+    animation: fadeInWelcome 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+@keyframes fadeInWelcome {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 /* Header with Logo */
 .welcome-header {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .logo {
-    height: 2.5rem;
+    height: 3.5rem;
     width: auto;
 }
 
@@ -63,6 +73,11 @@ body {
     text-decoration: none;
     display: block;
     aspect-ratio: 1 / 1;
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.choice-card:active {
+    transform: scale(0.98);
 }
 
 .choice-image {
@@ -97,7 +112,7 @@ body {
     bottom: 1rem;
     font-family: 'Alte Haas Grotesk', sans-serif;
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: #f5edd6;
 }
 
@@ -112,31 +127,35 @@ body {
 /* Tablet */
 @media (max-width: 1024px) {
     .welcome-container {
-        padding: 2rem;
+        padding: 1.5rem 2rem 2rem;
+    }
+
+    .welcome-header {
+        margin-bottom: 1.25rem;
     }
 
     .logo {
-        height: 2rem;
+        height: 2.75rem;
     }
 
     .choice-label {
-        font-size: 1.25rem;
+        font-size: 1.6rem;
     }
 }
 
 /* Mobile */
 @media (max-width: 768px) {
     .welcome-container {
-        padding: 1.5rem;
+        padding: 1.25rem 1.5rem 1.5rem;
     }
 
     .welcome-header {
         justify-content: center;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.25rem;
     }
 
     .logo {
-        height: 2rem;
+        height: 2.25rem;
     }
 
     .welcome-content {
@@ -150,7 +169,7 @@ body {
 
     .choice-label {
         bottom: 1rem;
-        font-size: 1.1rem;
+        font-size: 1.5rem;
     }
 
     .choice-card:first-child .choice-label {
@@ -165,11 +184,15 @@ body {
 /* Small Mobile */
 @media (max-width: 480px) {
     .welcome-container {
-        padding: 1rem;
+        padding: 0.85rem 1rem 1rem;
+    }
+
+    .welcome-header {
+        margin-bottom: 1rem;
     }
 
     .logo {
-        height: 1.75rem;
+        height: 2rem;
     }
 
     .choice-card {
@@ -177,6 +200,6 @@ body {
     }
 
     .choice-label {
-        font-size: 1rem;
+        font-size: 1.3rem;
     }
 }
