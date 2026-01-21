@@ -99,6 +99,7 @@ body {
     display: none;
 }
 
+
 .nav-link {
     color: var(--nav-color);
     text-decoration: none;
@@ -552,13 +553,14 @@ body {
         max-width: none;
     }
 
-    /* Illustrations: position near bottom of header */
+    /* Illustrations: position near bottom of header on mobile */
     .hero-header.illustrations .nav-group[data-portfolio="illustrations"]:not([hidden]) {
         position: absolute;
-        bottom: 8rem;
-        right: 0;
         top: auto;
+        bottom: 12%;
+        right: 0;
         z-index: 200;
+        gap: 0.3rem;
     }
 
     .nav-link {
@@ -573,7 +575,18 @@ body {
     }
 
     .hero-content {
-        margin-top: 0.5rem;
+        margin-top: 0.8rem;
+    }
+
+    /* Override photography-specific desktop margin on mobile to be equal */
+    .hero-header:not(.illustrations) .hero-content {
+        margin-top: 0.8rem;
+    }
+
+    /* Position illustrations header to show coffin procession on mobile */
+    .hero-header.illustrations {
+        background-size: auto 100%;
+        background-position: 10% top;
     }
 
     .logo {
@@ -686,7 +699,7 @@ body {
     }
 
     .hero-content {
-        margin-top: 0.5rem;
+        margin-top: 0.8rem;
     }
 
     .logo {
