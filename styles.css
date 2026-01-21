@@ -333,6 +333,11 @@ body {
     z-index: 5;
 }
 
+/* Animatie section only has fullwidth header, needs margin for about-contact overlap */
+#animatie .fullwidth-section {
+    margin-bottom: 150px;
+}
+
 .fullwidth-section.parallax {
     background-position: center;
     background-size: cover;
@@ -761,6 +766,10 @@ body {
         border-radius: 40px;
     }
 
+    #animatie .fullwidth-section {
+        margin-bottom: 80px;
+    }
+
     .about-hero {
         height: 130vh;
         background-attachment: scroll;
@@ -838,12 +847,17 @@ body {
     }
 
     .clients-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem 1rem;
     }
 
     .client-logo {
-        max-width: 120px;
+        max-width: 100px;
+    }
+
+    .about-image-grid {
+        width: 280px;
+        height: 365px;
     }
 }
 
