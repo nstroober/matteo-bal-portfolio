@@ -333,10 +333,6 @@ body {
     z-index: 5;
 }
 
-/* Animatie section only has fullwidth header, needs margin for about-contact overlap */
-#animatie .fullwidth-section {
-    margin-bottom: 150px;
-}
 
 .fullwidth-section.parallax {
     background-position: center;
@@ -766,9 +762,6 @@ body {
         border-radius: 40px;
     }
 
-    #animatie .fullwidth-section {
-        margin-bottom: 80px;
-    }
 
     .about-hero {
         height: 130vh;
