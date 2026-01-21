@@ -26,7 +26,7 @@
     --text-color: #333;
     --light-text: #666;
     --accent-color: #fff;
-    --nav-color: #FFFCF5;
+    --nav-color: #f5edd6;
     --spacing-unit: 1rem;
 }
 
@@ -583,7 +583,7 @@ body {
     .nav-link {
         font-size: 1.5rem;
         text-align: right;
-        color: #FFFCF5;
+        color: #f5edd6;
         line-height: 1;
         animation: fadeInUp 1.2s ease-out;
         animation-delay: 0.2s;
