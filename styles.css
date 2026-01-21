@@ -84,7 +84,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 6rem;
+    gap: clamp(2rem, 4vw, 6rem);
+    flex-wrap: nowrap;
 }
 
 /* Photography-specific: spread menu items across full width */
@@ -119,12 +120,13 @@ body {
     color: var(--nav-color);
     text-decoration: none;
     font-family: 'Alte Haas Grotesk', sans-serif;
-    font-size: 1.6rem;
+    font-size: clamp(1rem, 1.3vw, 1.6rem);
     font-weight: 700;
     letter-spacing: 0.02em;
     text-transform: lowercase;
     transition: opacity 0.3s ease;
     position: relative;
+    white-space: nowrap;
 }
 
 .nav-link:hover {
@@ -184,6 +186,22 @@ body {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Large viewport - bigger nav and logo for illustrations */
+@media (min-width: 1400px) {
+    .hero-header.illustrations .nav-link {
+        font-size: 1.9rem;
+    }
+
+    .hero-header.illustrations .nav-group {
+        gap: 9rem;
+    }
+
+    .hero-header.illustrations .logo {
+        max-width: 1200px;
+        width: 90vw;
     }
 }
 
