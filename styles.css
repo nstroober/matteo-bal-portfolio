@@ -99,6 +99,21 @@ body {
     display: none;
 }
 
+/* Hide illustrations nav by default */
+.nav-group[data-portfolio="illustrations"] {
+    display: none;
+}
+
+/* Show illustrations nav when in illustrations mode */
+.hero-header.illustrations .nav-group[data-portfolio="illustrations"] {
+    display: flex;
+}
+
+/* Hide photography nav when in illustrations mode */
+.hero-header.illustrations .nav-group[data-portfolio="photography"] {
+    display: none;
+}
+
 
 .nav-link {
     color: var(--nav-color);
@@ -528,6 +543,7 @@ body {
         justify-content: flex-end;
         align-items: flex-start;
         pointer-events: none;
+        height: 100%;
     }
 
     .nav-group {
