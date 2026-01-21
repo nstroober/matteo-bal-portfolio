@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matteo Bal - Portfolio</title>
-    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +22,7 @@
                 <a href="#contact" class="nav-link">contact</a>
             </div>
             <!-- Illustrations navigation -->
-            <div class="nav-group" data-portfolio="illustrations" hidden>
+            <div class="nav-group" data-portfolio="illustrations">
                 <a href="#redactioneel" class="nav-link">redactioneel</a>
                 <a href="#kinderboek" class="nav-link">kinderboek</a>
                 <a href="#concept-art" class="nav-link">concept art</a>
@@ -227,53 +227,19 @@
         </section>
     </div>
 
-    <!-- Illustrations: Animatie Section -->
+    <!-- Illustrations: Animatie Section (fullwidth header only) -->
     <div class="portfolio-section" data-portfolio="illustrations" id="animatie" hidden>
         <section class="fullwidth-section parallax">
             <a href="images/illustrations/animatie/header.jpg" class="glightbox" data-gallery="illustrations">
                 <img src="images/illustrations/animatie/header.jpg" alt="Animatie - Illustrations by Matteo Bal" class="fullwidth-image">
             </a>
         </section>
-        <section class="gallery-section">
-            <h2 class="section-title">animatie</h2>
-            <div class="grid-container grid-6">
-                <!-- Animated GIF - displays directly -->
-                <a href="images/illustrations/animatie/animation1.gif" class="gallery-item glightbox" data-gallery="illustrations">
-                    <img src="images/illustrations/animatie/image1.jpg" alt="Animation by Matteo Bal">
-                </a>
-                <!-- MP4 video with play indicator -->
-                <a href="images/illustrations/animatie/animation2.mp4" class="gallery-item glightbox" data-gallery="illustrations">
-                    <img src="images/illustrations/animatie/image2.jpg" alt="Animation by Matteo Bal">
-                    <div class="video-indicator">▶</div>
-                </a>
-                <!-- Static image placeholder -->
-                <a href="images/illustrations/animatie/image3.jpg" class="gallery-item glightbox" data-gallery="illustrations">
-                    <img src="images/illustrations/animatie/image3.jpg" alt="Animation by Matteo Bal">
-                </a>
-                <!-- Static image placeholder -->
-                <a href="images/illustrations/animatie/image4.jpg" class="gallery-item glightbox" data-gallery="illustrations">
-                    <img src="images/illustrations/animatie/image4.jpg" alt="Animation by Matteo Bal">
-                </a>
-                <!-- Animated GIF -->
-                <a href="images/illustrations/animatie/animation5.gif" class="gallery-item glightbox" data-gallery="illustrations">
-                    <img src="images/illustrations/animatie/image5.jpg" alt="Animation by Matteo Bal">
-                </a>
-                <!-- MP4 video with play indicator -->
-                <a href="images/illustrations/animatie/animation6.mp4" class="gallery-item glightbox" data-gallery="illustrations">
-                    <img src="images/illustrations/animatie/image6.jpg" alt="Animation by Matteo Bal">
-                    <div class="video-indicator">▶</div>
-                </a>
-            </div>
-        </section>
     </div>
 
     <!-- ==================== SHARED SECTIONS ==================== -->
 
     <!-- About & Contact Section -->
-    <section class="about-hero" id="contact">
-    </section>
-
-    <section class="about-contact-section">
+    <section class="about-contact-section" id="contact">
         <div class="about-contact-container">
             <h2 class="about-title">Kop voor stukje over mezelf</h2>
             <p class="about-text">
@@ -285,39 +251,43 @@
                 praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
             </p>
 
+            <div class="about-image-grid">
+                <img src="images/matteo.jpg" alt="Matteo Bal" class="about-portrait">
+            </div>
+
             <h3 class="contact-heading">contact</h3>
 
             <div class="contact-details">
                 <p class="contact-name">Matteo Bal</p>
-                <p class="contact-item">
+                <a href="tel:+31658720691" class="contact-item contact-link">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                     </svg>
                     06 5872 0691
-                </p>
-                <p class="contact-item">
+                </a>
+                <a href="mailto:info@matteobal.nl" class="contact-item contact-link">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                         <polyline points="22,6 12,13 2,6"></polyline>
                     </svg>
                     info@matteobal.nl
-                </p>
-                <p class="contact-item">
+                </a>
+                <a href="https://www.instagram.com/matteobal_analoog/" target="_blank" rel="noopener noreferrer" class="contact-item contact-link">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                     </svg>
                     matteobal_analoog
-                </p>
-                <p class="contact-item">
+                </a>
+                <a href="https://www.instagram.com/matteobal_illustratie/" target="_blank" rel="noopener noreferrer" class="contact-item contact-link">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                     </svg>
                     matteobal_illustratie
-                </p>
+                </a>
             </div>
 
             <div class="clients-grid">

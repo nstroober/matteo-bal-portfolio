@@ -316,7 +316,6 @@ body {
 }
 
 .fullwidth-section.parallax {
-    background-attachment: fixed;
     background-position: center;
     background-size: cover;
 }
@@ -336,23 +335,8 @@ body {
     display: block;
 }
 
-/* For actual parallax effect on scroll */
-.parallax img {
-    transform: translateZ(0);
-    will-change: transform;
-}
 
-/* About Hero Section */
-.about-hero {
-    position: relative;
-    height: 180vh;
-    overflow: hidden;
-    background-image: url('images/matteo.jpg');
-    background-position: center 85%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
+/* About Hero Section - removed, image now in about-contact grid */
 
 /* About & Contact Section */
 .about-contact-section {
@@ -372,11 +356,31 @@ body {
 
 .about-title {
     font-family: 'Alte Haas Grotesk', sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 4rem;
     color: var(--text-color);
+    letter-spacing: 0.12em;
+    text-transform: lowercase;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    padding-bottom: 1rem;
+}
+
+.about-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 8px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 8' preserveAspectRatio='none'%3E%3Cpath d='M0 4 Q5 1, 10 4 T20 4 T30 4 T40 4 T50 4 T60 4' stroke='%23c9a87c' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    opacity: 0.85;
 }
 
 .about-text {
@@ -384,8 +388,34 @@ body {
     font-size: 1rem;
     line-height: 1.8;
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
     color: var(--text-color);
+}
+
+.about-image-grid {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4rem;
+}
+
+.about-image-grid {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4rem;
+    overflow: hidden;
+    border-radius: 12px;
+    width: 230px;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.about-portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 85%;
+    transform: scale(1.4);
 }
 
 .contact-heading {
@@ -424,6 +454,15 @@ body {
 
 .contact-item svg {
     flex-shrink: 0;
+}
+
+.contact-link {
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.contact-link:hover {
+    opacity: 0.7;
 }
 
 /* Clients Grid */

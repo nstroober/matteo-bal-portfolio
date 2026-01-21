@@ -153,39 +153,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Parallax effect for full-width images
-    let ticking = false;
-
-    function updateParallax() {
-        const parallaxSections = document.querySelectorAll('.portfolio-section:not([hidden]) .parallax');
-
-        parallaxSections.forEach(section => {
-            const rect = section.getBoundingClientRect();
-            const scrolled = window.pageYOffset;
-            const imgElement = section.querySelector('img');
-
-            if (imgElement && rect.top < window.innerHeight && rect.bottom > 0) {
-                const yPos = -(scrolled - section.offsetTop) * 0.15;
-                imgElement.style.transform = `translate3d(0, ${yPos}px, 0)`;
-            }
-        });
-
-        ticking = false;
-    }
-
-    function requestParallaxUpdate() {
-        if (!ticking) {
-            window.requestAnimationFrame(updateParallax);
-            ticking = true;
-        }
-    }
-
-    // Only apply parallax on devices that support it well (not mobile)
-    if (window.innerWidth > 768) {
-        window.addEventListener('scroll', requestParallaxUpdate);
-        updateParallax(); // Initial call
-    }
-
     // Scroll indicator click handler
     const scrollIndicator = document.querySelector('.scroll-indicator');
     if (scrollIndicator) {
@@ -248,19 +215,12 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', highlightNavigation);
     highlightNavigation(); // Call once on load
 
-    // Handle window resize for parallax
+    // Handle window resize
     let resizeTimer;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-            if (window.innerWidth <= 768) {
-                // Disable parallax on mobile
-                window.removeEventListener('scroll', requestParallaxUpdate);
-            } else {
-                // Enable parallax on desktop
-                window.addEventListener('scroll', requestParallaxUpdate);
-                updateParallax();
-            }
+            // Resize handling
         }, 250);
     });
 
