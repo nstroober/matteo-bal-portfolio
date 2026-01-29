@@ -945,6 +945,17 @@ body {
     padding: 22px;
 }
 
+/* Center video in lightbox */
+.glightbox-clean .gslide-media {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.glightbox-clean .gvideo-wrapper {
+    margin: 0 auto;
+}
+
 /* Loading States */
 .gallery-item img,
 .fullwidth-image {
