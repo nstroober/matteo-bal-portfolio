@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize lightbox gallery
     let lightbox = GLightbox({
-        selector: '.portfolio-section:not([hidden]) .glightbox, .contact-section .glightbox',
+        selector: '.portfolio-section:not([hidden]) .glightbox, .about-contact-section .glightbox',
         touchNavigation: true,
         loop: true,
         autoplayVideos: true,
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             lightbox.destroy();
             lightbox = GLightbox({
-                selector: '.portfolio-section:not([hidden]) .glightbox',
+                selector: '.portfolio-section:not([hidden]) .glightbox, .about-contact-section .glightbox',
                 touchNavigation: true,
                 loop: true,
                 autoplayVideos: true,

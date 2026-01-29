@@ -464,22 +464,20 @@ body {
     color: var(--text-color);
 }
 
-.about-image-grid {
+.contact-row {
     display: flex;
     justify-content: center;
-    margin-bottom: 4rem;
+    align-items: center;
+    gap: 3rem;
+    margin-bottom: 6rem;
 }
 
 .about-image-grid {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 4rem;
     overflow: hidden;
     border-radius: 12px;
     width: 230px;
     height: 300px;
-    margin-left: auto;
-    margin-right: auto;
+    flex-shrink: 0;
 }
 
 .about-portrait {
@@ -488,21 +486,16 @@ body {
     object-fit: cover;
     object-position: center 85%;
     transform: scale(1.4);
+    transition: transform 0.3s ease;
 }
 
-.contact-heading {
-    font-family: 'Alte Haas Grotesk', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    text-align: center;
-    margin: 4rem 0 2.5rem;
-    color: var(--text-color);
-    text-transform: lowercase;
+.about-image-grid:hover .about-portrait {
+    transform: scale(1.5);
 }
 
 .contact-details {
-    text-align: center;
-    margin-bottom: 5rem;
+    text-align: left;
+    margin-bottom: 0;
 }
 
 .contact-name {
@@ -520,7 +513,7 @@ body {
     color: var(--text-color);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 0.5rem;
 }
 
@@ -878,9 +871,13 @@ body {
         margin-bottom: 3rem;
     }
 
-    .contact-heading {
-        font-size: 1.2rem;
-        margin: 3rem 0 2rem;
+    .contact-row {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .contact-details {
+        text-align: center;
     }
 
     .contact-name {
@@ -889,6 +886,7 @@ body {
 
     .contact-item {
         font-size: 0.9rem;
+        justify-content: center;
     }
 
     .clients-grid {
