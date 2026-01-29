@@ -706,15 +706,16 @@ body {
         display: none;
     }
 
-    /* Photography: position closer to logo */
+    /* Photography: position below logo */
     .hero-header:not(.illustrations) .nav-group[data-portfolio="photography"]:not([hidden]) {
         position: absolute;
-        top: 3.5rem;
-        right: 0;
+        top: 5rem;
+        right: 0.75rem;
         justify-content: flex-start;
         width: auto;
         max-width: none;
         gap: 0.3rem;
+        padding-right: 0;
     }
 
     /* Illustrations: position near bottom of header on mobile */
@@ -764,8 +765,18 @@ body {
     }
 
     .logo {
-        max-width: 700px;
-        width: 90vw;
+        max-width: none !important;
+        width: calc(100vw - 1rem) !important;
+    }
+
+    /* Photography logo even larger on mobile */
+    .hero-header:not(.illustrations) .logo {
+        width: calc(100vw - 1.5rem) !important;
+    }
+
+    /* Illustrations logo larger on mobile */
+    .hero-header.illustrations .logo {
+        width: calc(100vw - 2rem) !important;
     }
 
     .gallery-section {
@@ -908,10 +919,6 @@ body {
 
     .hero-content {
         margin-top: 0.8rem;
-    }
-
-    .logo {
-        max-width: 500px;
     }
 
     .clients-grid {
