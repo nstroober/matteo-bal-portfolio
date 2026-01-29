@@ -32,9 +32,12 @@
         </nav>
         <div class="hero-content">
             <a href="index.html" class="logo-link">
-                <img src="images/logo.png" alt="Matteo Bal" class="logo">
+                <img src="images/logo-photography.png" alt="Matteo Bal" class="logo" id="portfolio-logo"
+                     data-photography-src="images/logo-photography.png"
+                     data-illustrations-src="images/logo.png">
             </a>
         </div>
+        <img src="images/photography/header/subject.png" alt="" class="hero-subject-overlay">
     </header>
 
     <!-- ==================== PHOTOGRAPHY SECTIONS ==================== -->
@@ -227,11 +230,16 @@
         </section>
     </div>
 
-    <!-- Illustrations: Animatie Section (fullwidth header only) -->
+    <!-- Illustrations: Animatie Section (video thumbnail) -->
     <div class="portfolio-section" data-portfolio="illustrations" id="animatie" hidden>
-        <section class="fullwidth-section parallax">
-            <a href="images/illustrations/animatie/header.jpg" class="glightbox" data-gallery="illustrations">
-                <img src="images/illustrations/animatie/header.jpg" alt="Animatie - Illustrations by Matteo Bal" class="fullwidth-image">
+        <section class="fullwidth-section parallax animatie-section">
+            <a href="images/illustrations/animatie/animatie.mp4" class="glightbox video-thumbnail" data-gallery="illustrations">
+                <img src="images/illustrations/animatie/thumbnail.jpg" alt="Animatie - Illustrations by Matteo Bal" class="fullwidth-image">
+                <span class="play-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                </span>
             </a>
         </section>
     </div>

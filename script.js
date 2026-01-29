@@ -58,6 +58,17 @@ document.addEventListener('DOMContentLoaded', function() {
             heroHeader.classList.remove('illustrations');
         }
 
+        // Switch logo based on portfolio mode
+        const portfolioLogo = document.getElementById('portfolio-logo');
+        if (portfolioLogo) {
+            const newSrc = isIllustrations
+                ? portfolioLogo.dataset.illustrationsSrc
+                : portfolioLogo.dataset.photographySrc;
+            if (newSrc) {
+                portfolioLogo.src = newSrc;
+            }
+        }
+
         // Toggle navigation groups
         navGroups.forEach(group => {
             if (group.dataset.portfolio === targetPortfolio) {
@@ -224,12 +235,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 250);
     });
 
-    // Preload header images
+    // Preload header images and logos
     const preloadImages = () => {
         const photoHeader = new Image();
         photoHeader.src = 'images/photography/header/header.jpg';
         const illusHeader = new Image();
         illusHeader.src = 'images/illustrations/header/header.jpg';
+        const photoLogo = new Image();
+        photoLogo.src = 'images/logo-photography.png';
+        const illusLogo = new Image();
+        illusLogo.src = 'images/logo.png';
+        const subjectOverlay = new Image();
+        subjectOverlay.src = 'images/photography/header/subject.png';
     };
 
     preloadImages();

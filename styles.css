@@ -91,9 +91,15 @@ body {
 /* Photography-specific: spread menu items across full width */
 .hero-header:not(.illustrations) .nav-group[data-portfolio="photography"] {
     justify-content: space-between;
-    width: 100%;
-    max-width: 1200px;
+    width: calc(100vw - 4rem);
+    max-width: none;
     gap: 0;
+    padding: 0 1.5rem;
+}
+
+/* Photography-specific: larger menu font */
+.hero-header:not(.illustrations) .nav-link {
+    font-size: clamp(1.5rem, 1.7vw, 1.8rem);
 }
 
 .nav-group[hidden] {
@@ -150,6 +156,7 @@ body {
 
 /* Logo */
 .hero-content {
+    position: relative;
     text-align: center;
     z-index: 10;
     margin-top: 6rem;
@@ -172,10 +179,29 @@ body {
     animation: fadeInUp 1.2s ease-out;
 }
 
+/* Subject overlay for photography header (layered effect) */
+.hero-subject-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    object-fit: cover;
+    object-position: center 0%;
+    pointer-events: none;
+    z-index: 15;
+}
+
+/* Hide subject overlay on illustrations page */
+.hero-header.illustrations .hero-subject-overlay {
+    display: none !important;
+}
+
 /* Photography-specific larger logo */
 .hero-header:not(.illustrations) .logo {
-    max-width: 1400px;
-    width: 90vw;
+    max-width: none;
+    width: calc(100vw - 5rem);
 }
 
 @keyframes fadeInUp {
@@ -226,7 +252,7 @@ body {
     background: #FFFCF5;
     border-radius: 60px;
     margin: -150px 0;
-    z-index: 10;
+    z-index: 20;
 }
 
 /* Section Title */
@@ -330,7 +356,7 @@ body {
     overflow: hidden;
     border-radius: 60px;
     margin: 0;
-    z-index: 5;
+    z-index: 17;
 }
 
 
@@ -365,7 +391,7 @@ body {
     margin-top: -150px;
     margin-bottom: 0;
     padding: 5rem 4rem 6rem;
-    z-index: 10;
+    z-index: 20;
 }
 
 .about-contact-container {
@@ -678,6 +704,12 @@ body {
         height: calc(100vh + 80px);
     }
 
+    /* On mobile, use absolute positioning instead of fixed for subject overlay */
+    .hero-subject-overlay {
+        position: absolute;
+        height: calc(100vh + 80px);
+    }
+
     .hero-content {
         margin-top: 0.8rem;
     }
@@ -917,6 +949,64 @@ button:focus-visible {
 .back-to-home:hover svg {
     color: #FFFCF5;
     transform: translateX(-2px);
+}
+
+/* Video Thumbnail Play Button */
+.video-thumbnail {
+    position: relative;
+    display: block;
+    overflow: visible !important;
+}
+
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(26, 26, 26, 0.15);
+    border-radius: 50%;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.play-button svg {
+    color: #FFFCF5;
+    margin-left: 3px;
+    transition: all 0.3s ease;
+}
+
+.video-thumbnail:hover .play-button {
+    background: rgba(26, 26, 26, 0.25);
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Animatie section - show full image without crop */
+.fullwidth-section.animatie-section {
+    height: auto !important;
+    overflow: hidden;
+    aspect-ratio: 7510 / 4364;
+    margin-top: 120px;
+    margin-bottom: 120px;
+    border-radius: 0;
+}
+
+.fullwidth-section.animatie-section a {
+    border-radius: 0;
+    height: 100% !important;
+}
+
+.fullwidth-section.animatie-section .fullwidth-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 /* Image Transition */
