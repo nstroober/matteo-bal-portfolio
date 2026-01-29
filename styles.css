@@ -246,7 +246,7 @@ body {
 .gallery-section {
     position: relative;
     padding: 4rem 12rem 8rem;
-    background: #FFFCF5;
+    background: #ffffff;
     border-radius: 60px;
     margin: -150px 0;
     z-index: 20;
@@ -313,7 +313,7 @@ body {
     aspect-ratio: 5/7;
     cursor: pointer;
     display: block;
-    background: #FFFCF5;
+    background: #ffffff;
     border-radius: 12px;
     transform: translateZ(0);
     backface-visibility: hidden;
@@ -397,7 +397,7 @@ body {
 /* About & Contact Section */
 .about-contact-section {
     position: relative;
-    background: #FFFCF5;
+    background: #ffffff;
     border-radius: 60px;
     margin-top: -150px;
     margin-bottom: 0;
@@ -941,7 +941,7 @@ body {
 /* Loading States */
 .gallery-item img,
 .fullwidth-image {
-    background: #FFFCF5;
+    background: #ffffff;
 }
 
 /* Smooth Transitions */
