@@ -28,6 +28,11 @@
     --accent-color: #fff;
     --nav-color: #f5edd6;
     --spacing-unit: 1rem;
+    /* Accent colors */
+    --color-darkblue: #385085;
+    --color-green: #427a56;
+    --color-lightblue: #1d7ead;
+    --color-red: #e73c2d;
 }
 
 html {
@@ -136,7 +141,7 @@ body {
 }
 
 .nav-link:hover {
-    opacity: 0.7;
+    opacity: 1;
 }
 
 .nav-link::after {
@@ -145,8 +150,10 @@ body {
     bottom: -5px;
     left: 0;
     width: 0;
-    height: 1px;
-    background: var(--nav-color);
+    height: 6px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 8' preserveAspectRatio='none'%3E%3Cpath d='M0 4 Q5 1, 10 4 T20 4 T30 4 T40 4 T50 4 T60 4' stroke='%23e73c2d' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     transition: width 0.3s ease;
 }
 
@@ -285,10 +292,24 @@ body {
     transform: translateX(-50%);
     width: 60px;
     height: 8px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 8' preserveAspectRatio='none'%3E%3Cpath d='M0 4 Q5 1, 10 4 T20 4 T30 4 T40 4 T50 4 T60 4' stroke='%23c9a87c' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 8' preserveAspectRatio='none'%3E%3Cpath d='M0 4 Q5 1, 10 4 T20 4 T30 4 T40 4 T50 4 T60 4' stroke='%23385085' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     opacity: 0.85;
+}
+
+/* Alternating colors for section title stripes */
+#kinderboek .section-title::after,
+#zwartwit .section-title::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 8' preserveAspectRatio='none'%3E%3Cpath d='M0 4 Q5 1, 10 4 T20 4 T30 4 T40 4 T50 4 T60 4' stroke='%23427a56' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+#concept-art .section-title::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 8' preserveAspectRatio='none'%3E%3Cpath d='M0 4 Q5 1, 10 4 T20 4 T30 4 T40 4 T50 4 T60 4' stroke='%231d7ead' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+#kleur .section-title::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 8' preserveAspectRatio='none'%3E%3Cpath d='M0 4 Q5 1, 10 4 T20 4 T30 4 T40 4 T50 4 T60 4' stroke='%23e73c2d' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
 .grid-container {
@@ -428,7 +449,7 @@ body {
     transform: translateX(-50%);
     width: 60px;
     height: 8px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 8' preserveAspectRatio='none'%3E%3Cpath d='M0 4 Q5 1, 10 4 T20 4 T30 4 T40 4 T50 4 T60 4' stroke='%23c9a87c' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 8' preserveAspectRatio='none'%3E%3Cpath d='M0 4 Q5 1, 10 4 T20 4 T30 4 T40 4 T50 4 T60 4' stroke='%231d7ead' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     opacity: 0.85;
@@ -509,11 +530,28 @@ body {
 
 .contact-link {
     text-decoration: none;
-    transition: opacity 0.2s ease;
+    transition: color 0.2s ease;
 }
 
 .contact-link:hover {
-    opacity: 0.7;
+    opacity: 1;
+}
+
+/* Alternating hover colors for contact links */
+.contact-details .contact-link:nth-child(2):hover {
+    color: var(--color-darkblue);
+}
+
+.contact-details .contact-link:nth-child(3):hover {
+    color: var(--color-green);
+}
+
+.contact-details .contact-link:nth-child(4):hover {
+    color: var(--color-lightblue);
+}
+
+.contact-details .contact-link:nth-child(5):hover {
+    color: var(--color-red);
 }
 
 /* Clients Grid */
@@ -539,6 +577,23 @@ body {
 .client-logo:hover {
     filter: grayscale(0%);
     opacity: 1;
+}
+
+/* Alternating hover colors for client logos */
+.client-logo:nth-child(4n+1):hover {
+    filter: grayscale(0%) brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(500%) hue-rotate(196deg);
+}
+
+.client-logo:nth-child(4n+2):hover {
+    filter: grayscale(0%) brightness(0) saturate(100%) invert(42%) sepia(15%) saturate(1200%) hue-rotate(90deg);
+}
+
+.client-logo:nth-child(4n+3):hover {
+    filter: grayscale(0%) brightness(0) saturate(100%) invert(40%) sepia(80%) saturate(500%) hue-rotate(165deg);
+}
+
+.client-logo:nth-child(4n+4):hover {
+    filter: grayscale(0%) brightness(0) saturate(100%) invert(35%) sepia(90%) saturate(2000%) hue-rotate(345deg);
 }
 
 /* Footer */
@@ -947,7 +1002,7 @@ button:focus-visible {
 }
 
 .back-to-home:hover {
-    background: rgba(26, 26, 26, 0.25);
+    background: #e73c2d;
     transform: translateX(-3px);
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
 }
