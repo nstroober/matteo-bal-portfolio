@@ -33,7 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
         closeButton: true,
         closeOnOutsideClick: true,
         keyboardNavigation: true,
-        preload: true
+        preload: true,
+        videosWidth: '90vw'
     });
 
     // Check URL parameter to show correct portfolio
@@ -112,7 +113,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 closeButton: true,
                 closeOnOutsideClick: true,
                 keyboardNavigation: true,
-                preload: true
+                preload: true,
+                videosWidth: '90vw'
             });
         }, transitionDuration);
     }
