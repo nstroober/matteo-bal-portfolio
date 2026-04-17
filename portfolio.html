@@ -10,10 +10,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+    <script>
+        // Apply illustrations mode before first paint to prevent flash/flicker
+        if (new URLSearchParams(window.location.search).get('mode') === 'illustrations') {
+            document.documentElement.classList.add('illustrations-mode');
+        }
+    </script>
 </head>
 <body>
     <!-- Header Section -->
     <header class="hero-header" id="home">
+    <script>
+        // Add illustrations class immediately to prevent photography flash
+        if (document.documentElement.classList.contains('illustrations-mode')) {
+            document.currentScript.parentElement.classList.add('illustrations');
+        }
+    </script>
         <nav class="top-nav">
             <!-- Photography navigation -->
             <div class="nav-group" data-portfolio="photography">
@@ -35,6 +47,11 @@
                 <img src="images/logo-photography.png" alt="Matteo Bal" class="logo" id="portfolio-logo"
                      data-photography-src="images/logo-photography.png"
                      data-illustrations-src="images/logo-illustrations.png">
+                <script>
+                    if (document.documentElement.classList.contains('illustrations-mode')) {
+                        document.getElementById('portfolio-logo').src = 'images/logo-illustrations.png';
+                    }
+                </script>
             </a>
         </div>
         <img src="images/photography/header/subject.png" alt="" class="hero-subject-overlay">
@@ -250,15 +267,6 @@
     <section class="about-contact-section" id="contact">
         <div class="about-contact-container">
             <h2 class="about-title">contact</h2>
-            <p class="about-text">
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
-                nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum
-                dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit
-                praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
-            </p>
-
             <div class="contact-row">
                 <div class="about-image-grid">
                     <a href="images/matteo.jpg" class="glightbox" data-gallery="contact">

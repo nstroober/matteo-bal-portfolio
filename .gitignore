@@ -18,5 +18,8 @@ images_backup/
 *.ai
 *.sketch
 
+# Environment
+.env
+
 # Logs
 *.log

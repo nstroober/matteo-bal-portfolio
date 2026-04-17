@@ -159,6 +159,12 @@ document.addEventListener('DOMContentLoaded', function() {
                                 top: targetPosition - offset,
                                 behavior: 'smooth'
                             });
+                        } else if (fullwidthSection) {
+                            // Sections with only a fullwidth header (e.g. animatie)
+                            fullwidthSection.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
                         }
                     }
                 }
