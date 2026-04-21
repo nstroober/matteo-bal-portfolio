@@ -244,7 +244,7 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
 }
 
 .portfolio-section[hidden] {
-    display: none;
+    display: none !important;
 }
 
 /* Scroll Indicator - Hidden */
@@ -379,11 +379,12 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
     z-index: 17;
 }
 
+
+
 /* Give zwartwit banner more room for chin */
 #zwartwit .fullwidth-section {
     height: 140vh;
 }
-
 
 .fullwidth-section.parallax {
     background-position: center;
