@@ -411,20 +411,37 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
     height: 140vh;
 }
 
+/* iOS/mobile: fixed backgrounds size against the page there — force scroll.
+   Higher specificity than the base .hero-header.illustrations rule. */
+@media (max-width: 768px) {
+    .hero-header.hero-header.illustrations {
+        background-attachment: scroll;
+    }
+
+    /* mobiel: zwart/wit-banner niet de desktop-hoogte van 140vh */
+    #zwartwit .fullwidth-section {
+        height: 90vh;
+    }
+}
+
 /* Character banner: the complete painting is always visible, its edges
    meeting the overlapping white cards exactly. Section = painting height at
    full width (100/aspect vw) plus the card overlap above and below. */
+#character-design .fullwidth-section {
+    height: calc(68.7vw + 80px);
+    background: #407c4c; /* painting's edge green, so the white cards' rounded corners show */
+}
+#character-design .fullwidth-section a {
+    background: #407c4c;
+}
+#character-design .fullwidth-image {
+    object-fit: contain;
+    background: #407c4c;
+}
+
 @media (min-width: 769px) {
     #character-design .fullwidth-section {
         height: calc(68.7vw + 100px);
-        background: #407c4c; /* painting's edge green, so the white cards' rounded corners show */
-    }
-    #character-design .fullwidth-section a {
-        background: #407c4c;
-    }
-    #character-design .fullwidth-image {
-        object-fit: contain;
-        background: #407c4c;
     }
 }
 
