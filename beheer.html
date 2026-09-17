@@ -249,13 +249,13 @@ function buildHeaderCard(def) {
         sectionH = (def.key === 'zwartwit-banner' ? 1.4 : bp.h) * vh;
     }
     frame.style.aspectRatio = (vw / sectionH).toFixed(3);
+    const img = document.createElement('img');
+    img.src = previewUrls[item.src] || item.src;
     if (def.key === 'character-banner') {
         frame.style.background = '#407c4c';
         img.style.objectFit = 'contain';
         img.style.background = '#407c4c';
     }
-    const img = document.createElement('img');
-    img.src = previewUrls[item.src] || item.src;
     frame.appendChild(img);
     if (!def.hero) {
         const ovFrac = (bp.ov / sectionH * 100).toFixed(2) + '%';
