@@ -1,0 +1,308 @@
+{
+  "version": 1,
+  "sections": {
+    "kleur": {
+      "items": [
+        {
+          "src": "images/photography/kleur/image1.jpg",
+          "x": 42,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/kleur/image2.jpg",
+          "x": 48,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/kleur/image3.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/kleur/image4.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/kleur/image5.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/kleur/image6.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/kleur/image7.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/kleur/image8.jpg",
+          "x": 40,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/kleur/image9.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/kleur/image10.jpg",
+          "x": 55,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/kleur/image11.jpg",
+          "x": 55,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/kleur/image12.jpg",
+          "x": 30,
+          "y": 50,
+          "zoom": 1
+        }
+      ]
+    },
+    "zwartwit": {
+      "items": [
+        {
+          "src": "images/photography/zwartwit/image1.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/zwartwit/image2.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/zwartwit/image3.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/zwartwit/image4.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/zwartwit/image5.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/zwartwit/image6.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/zwartwit/image7.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/zwartwit/image8.jpg",
+          "x": 60,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/zwartwit/image9.jpg",
+          "x": 55,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/zwartwit/image10.jpg",
+          "x": 40,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/zwartwit/image11.jpg",
+          "x": 55,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/photography/zwartwit/image12.jpg",
+          "x": 55,
+          "y": 50,
+          "zoom": 1
+        }
+      ]
+    },
+    "redactioneel": {
+      "items": [
+        {
+          "src": "images/illustrations/redactioneel/image1.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1,
+          "thumb": "images/illustrations/redactioneel/image1-thumb.jpg"
+        },
+        {
+          "src": "images/illustrations/redactioneel/image2.jpg",
+          "x": 0,
+          "y": 50,
+          "zoom": 1,
+          "thumb": "images/illustrations/redactioneel/image2-thumb.jpg"
+        },
+        {
+          "src": "images/illustrations/redactioneel/image3.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1,
+          "thumb": "images/illustrations/redactioneel/image3-thumb.jpg"
+        },
+        {
+          "src": "images/illustrations/redactioneel/image4.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1,
+          "thumb": "images/illustrations/redactioneel/image4-thumb.jpg"
+        },
+        {
+          "src": "images/illustrations/redactioneel/image5.jpg",
+          "x": 35,
+          "y": 50,
+          "zoom": 1,
+          "thumb": "images/illustrations/redactioneel/image5-thumb.jpg"
+        },
+        {
+          "src": "images/illustrations/redactioneel/image6.jpg",
+          "x": 40,
+          "y": 50,
+          "zoom": 1,
+          "thumb": "images/illustrations/redactioneel/image6-thumb.jpg"
+        },
+        {
+          "src": "images/illustrations/redactioneel/image7.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1,
+          "thumb": "images/illustrations/redactioneel/image7-thumb.jpg"
+        },
+        {
+          "src": "images/illustrations/redactioneel/image8.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1,
+          "thumb": "images/illustrations/redactioneel/image8-thumb.jpg"
+        },
+        {
+          "src": "images/illustrations/redactioneel/image9.jpg",
+          "x": 70,
+          "y": 50,
+          "zoom": 1,
+          "thumb": "images/illustrations/redactioneel/image9-thumb.jpg"
+        },
+        {
+          "src": "images/illustrations/redactioneel/image10.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1,
+          "thumb": "images/illustrations/redactioneel/image10-thumb.jpg"
+        },
+        {
+          "src": "images/illustrations/redactioneel/image11.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1,
+          "thumb": "images/illustrations/redactioneel/image11-thumb.jpg"
+        },
+        {
+          "src": "images/illustrations/redactioneel/image12.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1,
+          "thumb": "images/illustrations/redactioneel/image12-thumb.jpg"
+        }
+      ]
+    },
+    "character-design": {
+      "items": [
+        {
+          "src": "images/illustrations/character-design/image1.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/illustrations/character-design/image2.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/illustrations/character-design/image3.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/illustrations/character-design/image4.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/illustrations/character-design/image5.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/illustrations/character-design/image6.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/illustrations/character-design/image7.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/illustrations/character-design/image8.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        },
+        {
+          "src": "images/illustrations/character-design/image9.jpg",
+          "x": 50,
+          "y": 50,
+          "zoom": 1
+        }
+      ]
+    }
+  },
+  "auth": {
+    "salt": "Mp0C1H5nqikW0bbIrDGL6w==",
+    "iv": "yTSfj3x/rs+ZWSb2",
+    "data": "PWKjlKFDATngFm7ZO/L8hcLhZS3g0AuwPCP5ebcLDSthXpEnHz5aUmKHXXA+KQWeENNn5VgZBsKur8HIfZ3dmuBAqpu+9jI8ieo/BMrELAPVQsXsdRrrJGRK4dAbcJV07NxjukqE4qjma6wHSQ=="
+  }
+}
