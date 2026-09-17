@@ -436,7 +436,7 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
 
     /* mobiel: animatie-banner toont het volledige beeld tussen de kaarten */
     #animatie .fullwidth-section {
-        height: calc(75.88vw + 120px);
+        height: calc(75.88vw + 160px);
         background: #ea8192;
     }
     #animatie .fullwidth-section a { background: #ea8192; }
@@ -447,7 +447,7 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
    meeting the overlapping white cards exactly. Section = painting height at
    full width (100/aspect vw) plus the card overlap above and below. */
 #character-design .fullwidth-section {
-    height: calc(68.7vw + 120px);
+    height: calc(68.7vw + 160px);
     background: #407c4c; /* painting's edge green, so the white cards' rounded corners show */
 }
 #character-design .fullwidth-section a {
@@ -460,7 +460,7 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
 
 @media (min-width: 769px) {
     #character-design .fullwidth-section {
-        height: calc(68.7vw + 100px);
+        height: calc(68.7vw + 200px);
     }
 }
 
