@@ -116,8 +116,19 @@ document.addEventListener('DOMContentLoaded', function() {
         videosWidth: '90vw'
     });
 
+    // Fade each (lazy) image in once it has loaded, so pop-in looks deliberate
+    function watchImageLoads() {
+        document.querySelectorAll('.gallery-item img, .fullwidth-image').forEach(img => {
+            if (img.classList.contains('img-loaded')) return;
+            if (img.complete && img.naturalWidth) { img.classList.add('img-loaded'); return; }
+            img.addEventListener('load', () => img.classList.add('img-loaded'), { once: true });
+        });
+    }
+    watchImageLoads();
+
     // Apply configured gallery crops/images, then refresh the lightbox links
     applyGalleryConfig().then(changed => {
+        watchImageLoads();
         if (changed) {
             lightbox.destroy();
             lightbox = GLightbox({
