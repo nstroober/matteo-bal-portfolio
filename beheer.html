@@ -160,7 +160,7 @@ function authHeaders() {
 async function loadConfig() {
     if (token) {
         try {
-            const r = await fetch(API + 'gallery-config.json?ref=' + BRANCH, { headers: authHeaders() });
+            const r = await fetch(API + 'gallery-config.json?ref=' + BRANCH + '&t=' + Date.now(), { headers: authHeaders(), cache: 'no-store' });
             if (r.ok) {
                 const data = await r.json();
                 configSha = data.sha;
@@ -243,15 +243,21 @@ function buildHeaderCard(def) {
     if (def.hero) {
         sectionH = vh; // fixed background: exactly the viewport
     } else if (def.key === 'character-banner') {
-        sectionH = null; // whole painting is always visible; frame = painting itself
+        // site: sectie = schilderijhoogte + overlap; witte kaarten vallen 75px over de rand
+        sectionH = vw / (item.ar || 1.4557) + (vw <= 1024 ? 100 : 150);
     } else {
         sectionH = (def.key === 'zwartwit-banner' ? 1.4 : bp.h) * vh;
     }
-    frame.style.aspectRatio = sectionH ? (vw / sectionH).toFixed(3) : String(item.ar || 1.4557);
+    frame.style.aspectRatio = (vw / sectionH).toFixed(3);
+    if (def.key === 'character-banner') {
+        frame.style.background = '#407c4c';
+        img.style.objectFit = 'contain';
+        img.style.background = '#407c4c';
+    }
     const img = document.createElement('img');
     img.src = previewUrls[item.src] || item.src;
     frame.appendChild(img);
-    if (!def.hero && sectionH) {
+    if (!def.hero) {
         const ovFrac = (bp.ov / sectionH * 100).toFixed(2) + '%';
         ['top', 'bottom'].forEach(side => {
             const ov = document.createElement('div');
@@ -473,7 +479,7 @@ async function putFile(path, base64, message, sha, retried) {
 }
 
 async function saveConfig(message) {
-    const shaResp = await fetch(API + 'gallery-config.json?ref=' + BRANCH, { headers: authHeaders() });
+    const shaResp = await fetch(API + 'gallery-config.json?ref=' + BRANCH + '&t=' + Date.now(), { headers: authHeaders(), cache: 'no-store' });
     if (shaResp.ok) configSha = (await shaResp.json()).sha;
     const json = JSON.stringify(config, null, 2);
     configSha = await putFile('gallery-config.json', btoa(unescape(encodeURIComponent(json))), message, configSha);
@@ -493,7 +499,7 @@ async function save() {
         await saveConfig('Galerij bijgewerkt via beheer');
         // controle: staat op GitHub nu écht wat we zojuist stuurden?
         setStatus('controleren…');
-        const check = await fetch(API + 'gallery-config.json?ref=' + BRANCH, { headers: authHeaders(), cache: 'no-store' });
+        const check = await fetch(API + 'gallery-config.json?ref=' + BRANCH + '&t=' + Date.now(), { headers: authHeaders(), cache: 'no-store' });
         if (!check.ok) throw new Error('controle mislukt (' + check.status + ')');
         const remote = JSON.parse(new TextDecoder().decode(b64d((await check.json()).content.replace(/\n/g, ''))));
         if (JSON.stringify(remote) !== JSON.stringify(config)) {
