@@ -60,11 +60,10 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
 .hero-header {
     position: relative;
     height: calc(100vh + 150px);
-    --hero-area-h: 100vh; /* fixed attachment: background is sized to the viewport */
     background-image: var(--hero-photo-src, url('images/photography/header/header.jpg'));
     background-position: var(--hero-photo-pos, center 0%);
-    /* cover × zoom: image width fills either the area width or (area height × aspect) */
-    background-size: calc(max(100vw, var(--hero-area-h) * var(--hero-photo-ar, 0.6761)) * var(--hero-photo-z, 1)) auto;
+    /* JS swaps this for a zoomed size only when a CMS zoom is set */
+    background-size: var(--hero-photo-size, cover);
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
@@ -77,17 +76,10 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
 }
 
 .hero-header.illustrations {
-    --hero-area-h: 100vh; /* fixed attachment: sized to the viewport */
     background-image: var(--hero-ill-src, url('images/illustrations/header/header.jpg'));
     background-position: var(--hero-ill-pos, center 0%);
-    background-size: calc(max(100vw, var(--hero-area-h) * var(--hero-ill-ar, 1.3464)) * var(--hero-ill-z, 1)) auto;
+    background-size: var(--hero-ill-size, cover);
     background-attachment: fixed;
-}
-
-/* ≤768px the hero switches to background-attachment: scroll and is sized
-   to the element (100vh + 80px) instead of the viewport */
-@media (max-width: 768px) {
-    .hero-header, .hero-header.illustrations { --hero-area-h: calc(100vh + 80px); }
 }
 
 /* Ensure no background animations on illustration header */
@@ -215,6 +207,8 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
     height: 100vh;
     object-fit: cover;
     object-position: center 0%;
+    transform: scale(var(--hero-photo-z, 1));
+    transform-origin: 50% 0;
     pointer-events: none;
     z-index: 15;
     clip-path: inset(0 0 0 0);

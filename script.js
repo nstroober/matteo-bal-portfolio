@@ -41,20 +41,20 @@ document.addEventListener('DOMContentLoaded', function() {
             const hdr = config.headers || {};
             const hero = document.querySelector('.hero-header');
             if (hero) {
-                const ph = hdr['photography-hero'];
-                if (ph) {
-                    hero.style.setProperty('--hero-photo-src', `url("${ph.src}")`);
-                    hero.style.setProperty('--hero-photo-pos', `${ph.x ?? 50}% ${ph.y ?? 0}%`);
-                    if (ph.ar) hero.style.setProperty('--hero-photo-ar', ph.ar);
-                    hero.style.setProperty('--hero-photo-z', ph.zoom ?? 1);
-                }
-                const ih = hdr['illustrations-hero'];
-                if (ih) {
-                    hero.style.setProperty('--hero-ill-src', `url("${ih.src}")`);
-                    hero.style.setProperty('--hero-ill-pos', `${ih.x ?? 50}% ${ih.y ?? 0}%`);
-                    if (ih.ar) hero.style.setProperty('--hero-ill-ar', ih.ar);
-                    hero.style.setProperty('--hero-ill-z', ih.zoom ?? 1);
-                }
+                const applyHero = (h, prefix) => {
+                    if (!h) return;
+                    hero.style.setProperty(`--${prefix}-src`, `url("${h.src}")`);
+                    hero.style.setProperty(`--${prefix}-pos`, `${h.x ?? 50}% ${h.y ?? 0}%`);
+                    const z = h.zoom ?? 1;
+                    if (z !== 1 && h.ar) {
+                        // zoomed: explicit cover × zoom (default stays plain 'cover')
+                        hero.style.setProperty(`--${prefix}-size`,
+                            `calc(max(100vw, 100vh * ${h.ar}) * ${z}) auto`);
+                        if (prefix === 'hero-photo') hero.style.setProperty('--hero-photo-z', z);
+                    }
+                };
+                applyHero(hdr['photography-hero'], 'hero-photo');
+                applyHero(hdr['illustrations-hero'], 'hero-ill');
             }
             const banners = { 'zwartwit-banner': 'zwartwit', 'character-banner': 'character-design', 'animatie-banner': 'animatie' };
             Object.entries(banners).forEach(([key, sid]) => {

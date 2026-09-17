@@ -17,6 +17,9 @@
         .btn.primary:hover { background: #c93325; }
         .btn:disabled { opacity: 0.4; cursor: default; }
         #status { font-size: 0.8rem; color: #bbb; min-width: 160px; }
+        #status.error { color: #ff8a7a; font-weight: 600; }
+        #status.ok { color: #8fd694; }
+        .warnbar { background: #8a6d1f; color: #fff; font-size: 0.8rem; padding: 0.5rem 1.5rem; }
         nav.tabs { display: flex; gap: 0.5rem; padding: 1rem 1.5rem 0; flex-wrap: wrap; }
         .tab { padding: 0.5rem 1rem; border-radius: 999px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 0.85rem; }
         .tab.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
@@ -65,6 +68,10 @@
         <button class="btn primary" id="save" disabled>opslaan &amp; publiceren</button>
         <a class="btn" href="index.html" style="text-decoration:none">← site</a>
     </header>
+
+    <div class="warnbar" id="localwarn" hidden>
+        let op: je gebruikt beheer via localhost. <strong>opslaan &amp; publiceren</strong> zet wijzigingen live op matteobal.nl — op localhost zie je ze niet terug (die leest de lokale bestanden).
+    </div>
 
     <div class="panel" id="login-panel" hidden>
         <p><strong>inloggen</strong></p>
@@ -115,7 +122,11 @@ let previewUrls = {};      // repo path -> object URL
 let token = sessionStorage.getItem('mb-admin-token') || '';
 
 const $ = sel => document.querySelector(sel);
-const setStatus = (msg) => { $('#status').textContent = msg; };
+const setStatus = (msg, level) => {
+    const el = $('#status');
+    el.textContent = msg;
+    el.className = level === 'error' ? 'error' : (level === 'ok' ? 'ok' : '');
+};
 const markDirty = () => { dirty = true; $('#dirty').hidden = false; $('#save').disabled = !token; };
 
 // --- crypto helpers: het GitHub-token staat AES-versleuteld in gallery-config.json ---
@@ -148,12 +159,19 @@ function authHeaders() {
 
 async function loadConfig() {
     if (token) {
-        const r = await fetch(API + 'gallery-config.json?ref=' + BRANCH, { headers: authHeaders() });
-        if (r.ok) {
-            const data = await r.json();
-            configSha = data.sha;
-            config = JSON.parse(new TextDecoder().decode(b64d(data.content.replace(/\n/g, ''))));
-            return;
+        try {
+            const r = await fetch(API + 'gallery-config.json?ref=' + BRANCH, { headers: authHeaders() });
+            if (r.ok) {
+                const data = await r.json();
+                configSha = data.sha;
+                config = JSON.parse(new TextDecoder().decode(b64d(data.content.replace(/\n/g, ''))));
+                return;
+            }
+            if (r.status !== 404) {
+                setStatus('kon de gepubliceerde versie niet laden (' + r.status + ') — je ziet mogelijk niet de live stand.', 'error');
+            }
+        } catch (e) {
+            setStatus('geen verbinding met GitHub — je ziet mogelijk niet de live stand.', 'error');
         }
     }
     const r = await fetch('gallery-config.json', { cache: 'no-cache' });
@@ -436,11 +454,21 @@ function blobToBase64(blob) {
     });
 }
 
-async function putFile(path, base64, message, sha) {
+async function putFile(path, base64, message, sha, retried) {
     const body = { message, content: base64, branch: BRANCH };
     if (sha) body.sha = sha;
     const r = await fetch(API + path, { method: 'PUT', headers: { ...authHeaders(), 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-    if (!r.ok) throw new Error(path + ': ' + (await r.json()).message);
+    if (!r.ok) {
+        if ((r.status === 409 || r.status === 422) && !retried) {
+            // sha verlopen (iemand anders publiceerde net): vers sha ophalen en één keer opnieuw
+            const fresh = await fetch(API + path + '?ref=' + BRANCH, { headers: authHeaders() });
+            const freshSha = fresh.ok ? (await fresh.json()).sha : undefined;
+            return putFile(path, base64, message, freshSha, true);
+        }
+        let msg = r.status + '';
+        try { msg = (await r.json()).message; } catch (e) {}
+        throw new Error(path + ': ' + msg);
+    }
     return (await r.json()).content.sha;
 }
 
@@ -463,11 +491,20 @@ async function save() {
         }
         setStatus('instellingen opslaan…');
         await saveConfig('Galerij bijgewerkt via beheer');
+        // controle: staat op GitHub nu écht wat we zojuist stuurden?
+        setStatus('controleren…');
+        const check = await fetch(API + 'gallery-config.json?ref=' + BRANCH, { headers: authHeaders(), cache: 'no-store' });
+        if (!check.ok) throw new Error('controle mislukt (' + check.status + ')');
+        const remote = JSON.parse(new TextDecoder().decode(b64d((await check.json()).content.replace(/\n/g, ''))));
+        if (JSON.stringify(remote) !== JSON.stringify(config)) {
+            throw new Error('gepubliceerde versie wijkt af — probeer opnieuw');
+        }
         pendingUploads = {};
         dirty = false; $('#dirty').hidden = true;
-        setStatus('opgeslagen — site is over ±1 minuut bijgewerkt.');
+        setStatus('gepubliceerd ✓ — live op matteobal.nl over ±1 minuut.', 'ok');
     } catch (e) {
-        setStatus('fout: ' + e.message);
+        setStatus('NIET GEPUBLICEERD — ' + e.message, 'error');
+        alert('Opslaan is NIET gelukt:\n\n' + e.message + '\n\nJe wijzigingen staan nog in dit scherm; probeer opnieuw op te slaan.');
         $('#save').disabled = false;
         return;
     }
@@ -555,6 +592,7 @@ window.addEventListener('resize', () => {
 });
 
 (async function init() {
+    if (['localhost', '127.0.0.1'].includes(location.hostname)) $('#localwarn').hidden = false;
     const hash = location.hash.replace('#', '');
     if (hash === 'headers' || SECTIONS.some(s => s.id === hash)) current = hash;
     setStatus('laden…');
