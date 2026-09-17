@@ -262,7 +262,7 @@ function buildHeaderCard(def) {
         ['top', 'bottom'].forEach(side => {
             const ov = document.createElement('div');
             ov.style.cssText = `position:absolute;left:0;right:0;${side}:0;height:${ovFrac};` +
-                `background:rgba(255,255,255,0.93);pointer-events:none;`;
+                `background:#fff;pointer-events:none;`;
             frame.appendChild(ov);
             requestAnimationFrame(() => {
                 const r = Math.round(bp.r * frame.clientWidth / vw) + 'px';
