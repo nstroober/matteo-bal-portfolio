@@ -486,7 +486,7 @@ async function gh(path, opts) {
     return r.json();
 }
 
-// Eén commit met alle bestanden tegelijk: één Netlify-build per save, en
+// Eén commit met alle bestanden tegelijk: één deploy per save, en
 // alles-of-niets (geen halve publicaties).
 async function publishCommit(files, message, retried) {
     const ref = await gh('/git/ref/heads/' + BRANCH);
