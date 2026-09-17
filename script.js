@@ -76,9 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const a = img.closest('a');
                 if (a && key !== 'animatie-banner') a.setAttribute('href', b.src);
                 if (key === 'character-banner' && b.ar) {
-                    const overlap = window.innerWidth <= 768 ? 80 : (window.innerWidth <= 1024 ? 100 : 150);
-                    section.querySelector('.fullwidth-section').style.height =
-                        'calc(' + (100 / b.ar).toFixed(2) + 'vw + ' + overlap + 'px)';
+                    section.querySelector('.fullwidth-section').style.setProperty('--cd-h', (100 / b.ar).toFixed(2) + 'vw');
                 }
                 if (img.getAttribute('src') !== b.src) img.setAttribute('src', b.src);
                 img.style.setProperty('--px', (b.x ?? 50) + '%');

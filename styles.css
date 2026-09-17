@@ -434,20 +434,31 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
         height: 90vh;
     }
 
-    /* mobiel: animatie-banner toont het volledige beeld tussen de kaarten */
-    #animatie .fullwidth-section {
-        height: calc(75.88vw + 160px);
+    /* mobiel: animatie-banner toont het volledige beeld tussen de kaarten,
+       met wat lucht erboven en eronder (kaarten overlappen 80px) */
+    #animatie .fullwidth-section.animatie-section {
+        height: calc(75.88vw + 200px) !important;
+        margin-top: 0;
+        margin-bottom: 0;
         background: #ea8192;
     }
-    #animatie .fullwidth-section a { background: #ea8192; }
-    #animatie .fullwidth-image { object-fit: contain; background: #ea8192; }
+    #animatie .fullwidth-section.animatie-section a {
+        height: 100% !important;
+        background: #ea8192;
+    }
+    #animatie .fullwidth-section.animatie-section .fullwidth-image {
+        height: 100% !important;
+        object-fit: contain !important;
+        background: #ea8192;
+    }
 }
 
 /* Character banner: the complete painting is always visible, its edges
    meeting the overlapping white cards exactly. Section = painting height at
    full width (100/aspect vw) plus the card overlap above and below. */
 #character-design .fullwidth-section {
-    height: calc(68.7vw + 160px);
+    /* --cd-h = schilderijhoogte op volle breedte; script.js past hem aan bij een ander beeld */
+    height: calc(var(--cd-h, 68.7vw) + 200px);
     background: #407c4c; /* painting's edge green, so the white cards' rounded corners show */
 }
 #character-design .fullwidth-section a {
@@ -460,13 +471,13 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
 
 @media (min-width: 769px) {
     #character-design .fullwidth-section {
-        height: calc(68.7vw + 200px);
+        height: calc(var(--cd-h, 68.7vw) + 200px);
     }
 }
 
 @media (min-width: 1025px) {
     #character-design .fullwidth-section {
-        height: calc(68.7vw + 150px);
+        height: calc(var(--cd-h, 68.7vw) + 150px);
     }
 }
 
