@@ -416,7 +416,7 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
    full width (100/aspect vw) plus the card overlap above and below. */
 @media (min-width: 769px) {
     #character-design .fullwidth-section {
-        height: calc(68.7vw + 200px);
+        height: calc(68.7vw + 100px);
         background: #407c4c; /* painting's edge green, so the white cards' rounded corners show */
     }
     #character-design .fullwidth-section a {
@@ -430,7 +430,7 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
 
 @media (min-width: 1025px) {
     #character-design .fullwidth-section {
-        height: calc(68.7vw + 300px);
+        height: calc(68.7vw + 150px);
     }
 }
 

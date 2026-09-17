@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const a = img.closest('a');
                 if (a && key !== 'animatie-banner') a.setAttribute('href', b.src);
                 if (key === 'character-banner' && b.ar && window.innerWidth > 768) {
-                    const overlap = window.innerWidth <= 1024 ? 200 : 300;
+                    const overlap = window.innerWidth <= 1024 ? 100 : 150;
                     section.querySelector('.fullwidth-section').style.height =
                         'calc(' + (100 / b.ar).toFixed(2) + 'vw + ' + overlap + 'px)';
                 }
