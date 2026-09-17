@@ -304,5 +304,39 @@
     "salt": "Mp0C1H5nqikW0bbIrDGL6w==",
     "iv": "yTSfj3x/rs+ZWSb2",
     "data": "PWKjlKFDATngFm7ZO/L8hcLhZS3g0AuwPCP5ebcLDSthXpEnHz5aUmKHXXA+KQWeENNn5VgZBsKur8HIfZ3dmuBAqpu+9jI8ieo/BMrELAPVQsXsdRrrJGRK4dAbcJV07NxjukqE4qjma6wHSQ=="
+  },
+  "headers": {
+    "photography-hero": {
+      "src": "images/photography/header/header.jpg",
+      "x": 50,
+      "y": 0,
+      "zoom": 1,
+      "ar": 0.6761
+    },
+    "illustrations-hero": {
+      "src": "images/illustrations/header/header.jpg",
+      "x": 50,
+      "y": 0,
+      "zoom": 1,
+      "ar": 1.3463
+    },
+    "zwartwit-banner": {
+      "src": "images/photography/zwartwit/header.jpg",
+      "x": 50,
+      "y": 50,
+      "zoom": 1
+    },
+    "character-banner": {
+      "src": "images/illustrations/character-design/header.jpg",
+      "x": 50,
+      "y": 50,
+      "zoom": 1.08
+    },
+    "animatie-banner": {
+      "src": "images/illustrations/animatie/thumbnail.jpg",
+      "x": 50,
+      "y": 50,
+      "zoom": 1
+    }
   }
 }
