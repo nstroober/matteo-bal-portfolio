@@ -1,6 +1,85 @@
 // Initialize GLightbox
 document.addEventListener('DOMContentLoaded', function() {
 
+    // Apply gallery settings from gallery-config.json (managed via beheer.html).
+    // Sets crop focus (--px/--py), zoom (--zoom) and image sources per grid cell,
+    // and grows/shrinks each grid to match the configured item count.
+    async function applyGalleryConfig() {
+        try {
+            const resp = await fetch('gallery-config.json', { cache: 'no-cache' });
+            if (!resp.ok) return false;
+            const config = await resp.json();
+            Object.entries(config.sections || {}).forEach(([sid, sec]) => {
+                const section = document.getElementById(sid);
+                const grid = section && section.querySelector('.grid-6');
+                if (!grid || !Array.isArray(sec.items) || sec.items.length === 0) return;
+                const cells = Array.from(grid.querySelectorAll('.gallery-item'));
+                while (cells.length < sec.items.length) {
+                    const clone = cells[0].cloneNode(true);
+                    clone.style.opacity = '1';
+                    clone.style.transform = '';
+                    clone.style.transition = '';
+                    grid.appendChild(clone);
+                    cells.push(clone);
+                }
+                while (cells.length > sec.items.length) {
+                    cells.pop().remove();
+                }
+                sec.items.forEach((item, i) => {
+                    const a = cells[i];
+                    const img = a.querySelector('img');
+                    if (!img) return;
+                    a.setAttribute('href', item.src);
+                    const want = item.thumb || item.src;
+                    if (img.getAttribute('src') !== want) img.setAttribute('src', want);
+                    img.style.setProperty('--px', (item.x != null ? item.x : 50) + '%');
+                    img.style.setProperty('--py', (item.y != null ? item.y : 50) + '%');
+                    img.style.setProperty('--zoom', item.zoom != null ? item.zoom : 1);
+                });
+            });
+            // Headers: hero backgrounds and fullwidth banners
+            const hdr = config.headers || {};
+            const hero = document.querySelector('.hero-header');
+            if (hero) {
+                const ph = hdr['photography-hero'];
+                if (ph) {
+                    hero.style.setProperty('--hero-photo-src', `url("${ph.src}")`);
+                    hero.style.setProperty('--hero-photo-pos', `${ph.x ?? 50}% ${ph.y ?? 0}%`);
+                    if (ph.ar) hero.style.setProperty('--hero-photo-ar', ph.ar);
+                    hero.style.setProperty('--hero-photo-z', ph.zoom ?? 1);
+                }
+                const ih = hdr['illustrations-hero'];
+                if (ih) {
+                    hero.style.setProperty('--hero-ill-src', `url("${ih.src}")`);
+                    hero.style.setProperty('--hero-ill-pos', `${ih.x ?? 50}% ${ih.y ?? 0}%`);
+                    if (ih.ar) hero.style.setProperty('--hero-ill-ar', ih.ar);
+                    hero.style.setProperty('--hero-ill-z', ih.zoom ?? 1);
+                }
+            }
+            const banners = { 'zwartwit-banner': 'zwartwit', 'character-banner': 'character-design', 'animatie-banner': 'animatie' };
+            Object.entries(banners).forEach(([key, sid]) => {
+                const b = hdr[key];
+                const section = document.getElementById(sid);
+                const img = section && section.querySelector('.fullwidth-section img.fullwidth-image');
+                if (!b || !img) return;
+                const a = img.closest('a');
+                if (a && key !== 'animatie-banner') a.setAttribute('href', b.src);
+                if (key === 'character-banner' && b.ar && window.innerWidth > 768) {
+                    const overlap = window.innerWidth <= 1024 ? 200 : 300;
+                    section.querySelector('.fullwidth-section').style.height =
+                        'calc(' + (100 / b.ar).toFixed(2) + 'vw + ' + overlap + 'px)';
+                }
+                if (img.getAttribute('src') !== b.src) img.setAttribute('src', b.src);
+                img.style.setProperty('--px', (b.x ?? 50) + '%');
+                img.style.setProperty('--py', (b.y ?? 50) + '%');
+                img.style.setProperty('--zoom', b.zoom ?? 1);
+            });
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
     // Portfolio Mode Detection (URL parameter)
     const heroHeader = document.querySelector('.hero-header');
     const navGroups = document.querySelectorAll('.nav-group');
@@ -35,6 +114,26 @@ document.addEventListener('DOMContentLoaded', function() {
         keyboardNavigation: true,
         preload: true,
         videosWidth: '90vw'
+    });
+
+    // Apply configured gallery crops/images, then refresh the lightbox links
+    applyGalleryConfig().then(changed => {
+        if (changed) {
+            lightbox.destroy();
+            lightbox = GLightbox({
+                selector: '.portfolio-section:not([hidden]) .glightbox, .about-contact-section .glightbox',
+                touchNavigation: true,
+                loop: true,
+                autoplayVideos: true,
+                zoomable: true,
+                draggable: true,
+                closeButton: true,
+                closeOnOutsideClick: true,
+                keyboardNavigation: true,
+                preload: true,
+                videosWidth: '90vw'
+            });
+        }
     });
 
     // Check URL parameter to show correct portfolio
@@ -192,19 +291,6 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(item);
     });
 
-    // Lazy loading for images
-    if ('loading' in HTMLImageElement.prototype) {
-        const images = document.querySelectorAll('img[loading="lazy"]');
-        images.forEach(img => {
-            img.src = img.dataset.src;
-        });
-    } else {
-        // Fallback for browsers that don't support lazy loading
-        const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
-        document.body.appendChild(script);
-    }
-
     // Add active state to navigation based on scroll position
     function highlightNavigation() {
         const visibleSections = document.querySelectorAll('.portfolio-section:not([hidden]), #contact');
@@ -258,6 +344,21 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     preloadImages();
+
+    // Give the footer credit a tiny hop each time the footer scrolls into view
+    const footer = document.querySelector('.footer');
+    if (footer && 'IntersectionObserver' in window) {
+        const footerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    footer.classList.add('in-view');
+                } else {
+                    footer.classList.remove('in-view');
+                }
+            });
+        }, { threshold: 0.9 });
+        footerObserver.observe(footer);
+    }
 
     console.log('Matteo Bal Portfolio initialized');
 });

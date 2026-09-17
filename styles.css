@@ -26,7 +26,7 @@
     --text-color: #333;
     --light-text: #666;
     --accent-color: #fff;
-    --nav-color: #f5edd6;
+    --nav-color: #ffffff;
     --spacing-unit: 1rem;
     /* Accent colors */
     --color-darkblue: #385085;
@@ -60,7 +60,12 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
 .hero-header {
     position: relative;
     height: calc(100vh + 150px);
-    background: url('images/photography/header/header.jpg') center 0%/cover no-repeat;
+    --hero-area-h: 100vh; /* fixed attachment: background is sized to the viewport */
+    background-image: var(--hero-photo-src, url('images/photography/header/header.jpg'));
+    background-position: var(--hero-photo-pos, center 0%);
+    /* cover × zoom: image width fills either the area width or (area height × aspect) */
+    background-size: calc(max(100vw, var(--hero-area-h) * var(--hero-photo-ar, 0.6761)) * var(--hero-photo-z, 1)) auto;
+    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -72,8 +77,17 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
 }
 
 .hero-header.illustrations {
-    background: url('images/illustrations/header/header.jpg') center 0%/cover no-repeat;
+    --hero-area-h: 100vh; /* fixed attachment: sized to the viewport */
+    background-image: var(--hero-ill-src, url('images/illustrations/header/header.jpg'));
+    background-position: var(--hero-ill-pos, center 0%);
+    background-size: calc(max(100vw, var(--hero-area-h) * var(--hero-ill-ar, 1.3464)) * var(--hero-ill-z, 1)) auto;
     background-attachment: fixed;
+}
+
+/* ≤768px the hero switches to background-attachment: scroll and is sized
+   to the element (100vh + 80px) instead of the viewport */
+@media (max-width: 768px) {
+    .hero-header, .hero-header.illustrations { --hero-area-h: calc(100vh + 80px); }
 }
 
 /* Ensure no background animations on illustration header */
@@ -134,6 +148,18 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
 /* Hide photography nav when in illustrations mode */
 .hero-header.illustrations .nav-group[data-portfolio="photography"] {
     display: none;
+}
+
+/* Illustrations: pin the nav just above the first tile line of the pool
+   background. The line sits at 3.64% of the image width (or 4.9% of its
+   height when the viewport is taller than the image aspect). Mobile (≤768px)
+   uses a stacked nav, so this only applies where the nav is horizontal. */
+@media (min-width: 769px) {
+    .hero-header.illustrations .top-nav {
+        top: max(0.5rem, calc(max(3.64vw, 4.9vh) - 2.2rem));
+        padding-top: 0;
+        padding-bottom: 0;
+    }
 }
 
 
@@ -327,21 +353,26 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
     border-radius: 12px;
     transform: translateZ(0);
     backface-visibility: hidden;
+    /* skip rendering work for offscreen cells */
+    content-visibility: auto;
+    contain-intrinsic-size: auto 320px;
 }
 
 .gallery-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: var(--px, 50%) var(--py, 50%);
     transition: transform 0.6s ease;
     display: block;
     border-radius: 12px;
-    transform: translateZ(0);
+    transform: scale(var(--zoom, 1)) translateZ(0);
+    transform-origin: var(--px, 50%) var(--py, 50%);
     backface-visibility: hidden;
 }
 
 .gallery-item:hover img {
-    transform: scale(1.08) translateZ(0);
+    transform: scale(calc(var(--zoom, 1) * 1.08)) translateZ(0);
 }
 
 /* Video indicator overlay */
@@ -386,6 +417,29 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
     height: 140vh;
 }
 
+/* Character banner: the complete painting is always visible, its edges
+   meeting the overlapping white cards exactly. Section = painting height at
+   full width (100/aspect vw) plus the card overlap above and below. */
+@media (min-width: 769px) {
+    #character-design .fullwidth-section {
+        height: calc(68.7vw + 200px);
+        background: #407c4c; /* painting's edge green, so the white cards' rounded corners show */
+    }
+    #character-design .fullwidth-section a {
+        background: #407c4c;
+    }
+    #character-design .fullwidth-image {
+        object-fit: contain;
+        background: #407c4c;
+    }
+}
+
+@media (min-width: 1025px) {
+    #character-design .fullwidth-section {
+        height: calc(68.7vw + 300px);
+    }
+}
+
 .fullwidth-section.parallax {
     background-position: center;
     background-size: cover;
@@ -403,6 +457,9 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: var(--px, 50%) var(--py, 50%);
+    transform: scale(var(--zoom, 1));
+    transform-origin: var(--px, 50%) var(--py, 50%);
     display: block;
 }
 
@@ -595,6 +652,73 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
     color: #ccc !important;
 }
 
+/* Footer credit: inline with the copyright, a touch lighter, and gives a
+   tiny hop when the footer scrolls into view */
+.footer-credit {
+    display: inline-block;
+    margin-left: 0.35rem;
+    color: #999;
+}
+
+.footer-credit a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-credit a:hover {
+    color: #ccc;
+    text-decoration: underline;
+}
+
+.footer.in-view .footer-credit {
+    animation: credit-hop 0.6s cubic-bezier(0.28, 0.84, 0.42, 1) 0.4s;
+}
+
+@keyframes credit-hop {
+    0%, 100% { transform: none; }
+    30% { transform: translateY(-7px); }
+    55% { transform: translateY(2px); }
+    75% { transform: translateY(-2px); }
+}
+
+/* Admin button, vertically centered at the right side of the footer,
+   styled like the back-to-home button */
+.footer-admin {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.footer-admin svg {
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.footer-admin:hover {
+    background: #e73c2d;
+}
+
+@media (max-width: 768px) {
+    .footer-admin {
+        width: 40px;
+        height: 40px;
+        right: 1rem;
+    }
+}
+
 /* Tablet Styles */
 @media (max-width: 1024px) {
     .top-nav {
@@ -733,7 +857,7 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
     .nav-link {
         font-size: 1.5rem;
         text-align: right;
-        color: #f5edd6;
+        color: #ffffff;
         line-height: 1;
         animation: fadeInUp 1.2s ease-out;
         animation-delay: 0.2s;
@@ -1006,7 +1130,7 @@ button:focus-visible {
 }
 
 .back-to-home svg {
-    color: #FFFCF5;
+    color: #ffffff;
     transition: all 0.3s ease;
 }
 
@@ -1017,7 +1141,7 @@ button:focus-visible {
 }
 
 .back-to-home:hover svg {
-    color: #FFFCF5;
+    color: #ffffff;
     transform: translateX(-2px);
 }
 
@@ -1047,7 +1171,7 @@ button:focus-visible {
 }
 
 .play-button svg {
-    color: #FFFCF5;
+    color: #ffffff;
     margin-left: 3px;
     transition: all 0.3s ease;
 }
