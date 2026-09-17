@@ -473,43 +473,60 @@ function blobToBase64(blob) {
     });
 }
 
-async function putFile(path, base64, message, sha, retried) {
-    const body = { message, content: base64, branch: BRANCH };
-    if (sha) body.sha = sha;
-    const r = await fetch(API + path, { method: 'PUT', headers: { ...authHeaders(), 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+async function gh(path, opts) {
+    const r = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}${path}`, {
+        ...opts,
+        headers: { ...authHeaders(), 'Content-Type': 'application/json', ...(opts && opts.headers) },
+    });
     if (!r.ok) {
-        if ((r.status === 409 || r.status === 422) && !retried) {
-            // sha verlopen (iemand anders publiceerde net): vers sha ophalen en één keer opnieuw
-            const fresh = await fetch(API + path + '?ref=' + BRANCH, { headers: authHeaders() });
-            const freshSha = fresh.ok ? (await fresh.json()).sha : undefined;
-            return putFile(path, base64, message, freshSha, true);
-        }
         let msg = r.status + '';
         try { msg = (await r.json()).message; } catch (e) {}
-        throw new Error(path + ': ' + msg);
+        const err = new Error(msg); err.status = r.status; throw err;
     }
-    return (await r.json()).content.sha;
+    return r.json();
+}
+
+// Eén commit met alle bestanden tegelijk: één Netlify-build per save, en
+// alles-of-niets (geen halve publicaties).
+async function publishCommit(files, message, retried) {
+    const ref = await gh('/git/ref/heads/' + BRANCH);
+    const baseCommit = ref.object.sha;
+    const baseTree = (await gh('/git/commits/' + baseCommit)).tree.sha;
+    const tree = [];
+    for (const f of files) {
+        const blob = await gh('/git/blobs', { method: 'POST', body: JSON.stringify({ content: f.base64, encoding: 'base64' }) });
+        tree.push({ path: f.path, mode: '100644', type: 'blob', sha: blob.sha });
+    }
+    const newTree = await gh('/git/trees', { method: 'POST', body: JSON.stringify({ base_tree: baseTree, tree }) });
+    const commit = await gh('/git/commits', { method: 'POST', body: JSON.stringify({ message, tree: newTree.sha, parents: [baseCommit] }) });
+    try {
+        await gh('/git/refs/heads/' + BRANCH, { method: 'PATCH', body: JSON.stringify({ sha: commit.sha, force: false }) });
+    } catch (e) {
+        if (!retried) return publishCommit(files, message, true); // iemand pushte tussendoor: één keer opnieuw
+        throw e;
+    }
+    return commit.sha;
 }
 
 async function saveConfig(message) {
-    const shaResp = await fetch(API + 'gallery-config.json?ref=' + BRANCH + '&t=' + Date.now(), { headers: authHeaders(), cache: 'no-store' });
-    if (shaResp.ok) configSha = (await shaResp.json()).sha;
     const json = JSON.stringify(config, null, 2);
-    configSha = await putFile('gallery-config.json', btoa(unescape(encodeURIComponent(json))), message, configSha);
+    await publishCommit([{ path: 'gallery-config.json', base64: btoa(unescape(encodeURIComponent(json))) }], message);
 }
 
 async function save() {
     if (!token) return;
     $('#save').disabled = true;
     try {
+        const files = [];
         const paths = Object.keys(pendingUploads);
         for (let i = 0; i < paths.length; i++) {
-            setStatus(`upload ${i + 1}/${paths.length}…`);
-            const b64 = await blobToBase64(pendingUploads[paths[i]]);
-            await putFile(paths[i], b64, 'Galerij: nieuwe afbeelding via beheer');
+            setStatus(`afbeelding ${i + 1}/${paths.length} voorbereiden…`);
+            files.push({ path: paths[i], base64: await blobToBase64(pendingUploads[paths[i]]) });
         }
-        setStatus('instellingen opslaan…');
-        await saveConfig('Galerij bijgewerkt via beheer');
+        const json = JSON.stringify(config, null, 2);
+        files.push({ path: 'gallery-config.json', base64: btoa(unescape(encodeURIComponent(json))) });
+        setStatus('publiceren…');
+        await publishCommit(files, 'Galerij bijgewerkt via beheer');
         // controle: staat op GitHub nu écht wat we zojuist stuurden?
         setStatus('controleren…');
         const check = await fetch(API + 'gallery-config.json?ref=' + BRANCH + '&t=' + Date.now(), { headers: authHeaders(), cache: 'no-store' });
