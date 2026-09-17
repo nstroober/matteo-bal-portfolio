@@ -55,6 +55,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 };
                 applyHero(hdr['photography-hero'], 'hero-photo');
                 applyHero(hdr['illustrations-hero'], 'hero-ill');
+                const heroBg = document.querySelector('.hero-bg');
+                if (heroBg) {
+                    window.__syncHeroBg = () => {
+                        const isIll = hero.classList.contains('illustrations');
+                        const cfg = hdr[isIll ? 'illustrations-hero' : 'photography-hero'];
+                        if (!cfg) return;
+                        if (heroBg.getAttribute('src') !== cfg.src) heroBg.setAttribute('src', cfg.src);
+                        heroBg.style.objectPosition = `${cfg.x ?? 50}% ${cfg.y ?? 0}%`;
+                    };
+                    window.__syncHeroBg();
+                }
             }
             const banners = { 'zwartwit-banner': 'zwartwit', 'character-banner': 'character-design', 'animatie-banner': 'animatie' };
             Object.entries(banners).forEach(([key, sid]) => {
@@ -167,6 +178,18 @@ document.addEventListener('DOMContentLoaded', function() {
             heroHeader.classList.add('illustrations');
         } else {
             heroHeader.classList.remove('illustrations');
+        }
+
+        // Switch mobile hero background image with the mode
+        const heroBgEl = document.querySelector('.hero-bg');
+        if (heroBgEl) {
+            if (window.__syncHeroBg) {
+                setTimeout(() => window.__syncHeroBg(), 0);
+            } else {
+                heroBgEl.src = isIllustrations
+                    ? 'images/illustrations/header/header.jpg'
+                    : 'images/photography/header/header.jpg';
+            }
         }
 
         // Switch logo based on portfolio mode

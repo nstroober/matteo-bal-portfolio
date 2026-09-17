@@ -409,24 +409,45 @@ html.illustrations-mode .portfolio-section[data-portfolio="illustrations"] {
     height: 140vh;
 }
 
-/* iOS/mobile: fixed backgrounds size against the page there — force scroll.
-   Higher specificity than the base .hero-header.illustrations rule. */
+/* Mobiel: echte <img> als hero-achtergrond — iOS positioneert css-backgrounds
+   onbetrouwbaar. Desktop houdt de css-achtergrond (met fixed-effect). */
+.hero-bg { display: none; }
+
 @media (max-width: 768px) {
-    .hero-header.hero-header.illustrations {
-        background-attachment: scroll;
+    .hero-header, .hero-header.illustrations {
+        background-image: none;
+    }
+
+    .hero-bg {
+        display: block;
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 0%;
+        z-index: 0;
     }
 
     /* mobiel: zwart/wit-banner niet de desktop-hoogte van 140vh */
     #zwartwit .fullwidth-section {
         height: 90vh;
     }
+
+    /* mobiel: animatie-banner toont het volledige beeld tussen de kaarten */
+    #animatie .fullwidth-section {
+        height: calc(75.88vw + 120px);
+        background: #ea8192;
+    }
+    #animatie .fullwidth-section a { background: #ea8192; }
+    #animatie .fullwidth-image { object-fit: contain; background: #ea8192; }
 }
 
 /* Character banner: the complete painting is always visible, its edges
    meeting the overlapping white cards exactly. Section = painting height at
    full width (100/aspect vw) plus the card overlap above and below. */
 #character-design .fullwidth-section {
-    height: calc(68.7vw + 80px);
+    height: calc(68.7vw + 120px);
     background: #407c4c; /* painting's edge green, so the white cards' rounded corners show */
 }
 #character-design .fullwidth-section a {
