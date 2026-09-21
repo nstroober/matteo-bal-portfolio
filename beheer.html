@@ -91,15 +91,15 @@
         <input type="password" id="password" placeholder="wachtwoord" autocomplete="current-password">
         <button class="btn" id="login">inloggen</button>
         <p id="login-error" style="color:#c93325; margin-top:0.6rem;" hidden>wachtwoord onjuist.</p>
-        <span class="setup-link" id="show-setup">eerste installatie / wachtwoord wijzigen</span>
+        <span class="setup-link" id="show-setup">wachtwoord wijzigen</span>
     </div>
 
     <div class="panel" id="setup-panel" hidden>
-        <p><strong>installatie</strong> (eenmalig, voor de beheerder)</p>
-        <p style="margin-top:0.6rem">maak op GitHub een <em>fine-grained personal access token</em> aan met alleen toegang tot <code>matteo-bal-portfolio</code> en het recht <em>Contents: Read and write</em>. kies daarnaast een wachtwoord. het token wordt versleuteld met dat wachtwoord opgeslagen, zodat er daarna alleen nog met het wachtwoord ingelogd hoeft te worden.</p>
+        <p><strong>wachtwoord wijzigen</strong> (voor de beheerder)</p>
+        <p style="margin-top:0.6rem">hiervoor is een GitHub-token nodig: maak er een aan onder <em>fine-grained personal access tokens</em>, met alleen toegang tot <code>matteo-bal-portfolio</code> en het recht <em>Contents: Read and write</em>. het token wordt versleuteld met het nieuwe wachtwoord opgeslagen, zodat er daarna weer alleen met het wachtwoord ingelogd hoeft te worden.</p>
         <input type="password" id="setup-token" placeholder="GitHub-token" autocomplete="off">
         <input type="password" id="setup-password" placeholder="nieuw wachtwoord (kies iets degelijks)" autocomplete="new-password">
-        <button class="btn" id="setup-go">installeren</button>
+        <button class="btn" id="setup-go">wachtwoord opslaan</button>
         <p id="setup-error" style="color:#c93325; margin-top:0.6rem;" hidden></p>
     </div>
 
@@ -601,8 +601,8 @@ $('#setup-go').onclick = async () => {
         sessionStorage.setItem('mb-admin-token', token);
         config.auth = await encryptToken(rawToken, pw);
         setStatus('instellingen opslaan…');
-        await saveConfig('Beheer: wachtwoord ingesteld');
-        setStatus('installatie voltooid.');
+        await saveConfig('Beheer: wachtwoord gewijzigd');
+        setStatus('wachtwoord gewijzigd.');
         showEditor();
     } catch (e) {
         setStatus('');
